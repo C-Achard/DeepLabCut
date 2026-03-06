@@ -134,6 +134,8 @@ jobs:
 
               **If you’re still stuck**, please [open a help issue](${newIssueUrl}) and include the [failing run](${runUrl}).
 
+              ---
+
               <sub><em>This is a repository bot. It is not an AI and cannot provide companionship.</em></sub>
               <sub><em>${quote}</em></sub>`;
 
