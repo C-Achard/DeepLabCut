@@ -118,7 +118,7 @@ jobs:
               const quotes = [
                 "The cake is a lie.",
                 "If you are not using dark mode, I might get scared.",
-                "I can only see two colors :(",
+                "I can only see two colors, but happiness is felt, not seen.",
                 "Clean code makes me happy!",
                 "I was born in 2026. Is that old for a mouse?",
                 "Cheese is overrated, I prefer chocolate.",
@@ -129,12 +129,28 @@ jobs:
                 "Sunlight on my whiskers, serotonin in my brain.",
                 "bash cannot parse what bash did not create.",
                 "I am not a bug, I am an undocumented feature. Also a mouse.",
-                "I may bite but it is for your own good. Run pre-commit!",
-                "What is that in your right hand? Oh never mind.",
+                "I may bite but it is for your own good.",
+                "What is that in your right hand? Oh, never mind.",
                 "*squeaks in binary*",
                 "Unformatted code cannot make me see red. I'm missing that photoreceptor.",
-                "Jessy was here. He's probably laughing if he's seeing this. o7",
-                "We value animal well-being. No mice were harmed in the making of this PR comment."
+                "Jessy was here. He's probably laughing if he's seeing this.",
+                "We value animal well-being. No mice were harmed in the making of this PR comment.",
+                "Your code ran on my machine. Unfortunately, so did I.",
+                "CI says no, but I say maybe. Please format!",
+                "Whitespace is the lint killer",
+                "The Matrix is a system, Neovim",
+                "Hypothesis: formatting reduces freezing behavior in mice. Data supports.",
+                "This is a controlled experiment. The control is your file.",
+                "Your diff is statistically significant. Please have a second look.",
+                "Peer review requested. (The peer is pre-commit.)",
+                "Confounding variable detected: please account for language-specific effects on mice populations.",
+                "I ran a pilot study. The pilot crashed into a trailing whitespace.",
+                "I plotted your changes. The trend is toward formatting.",
+                "This pipeline is double-blind. You can still see the lint.",
+                "Null hypothesis rejected: hooks did something.",
+                "I brought a microscope.",
+                "Atomic report : let me break it down for you."
+                "Neurolinguistic hazards not allowed past this point."
               ];
               const withQuote = process.env.WITH_QUOTE === 'true';
               const quote = withQuote
