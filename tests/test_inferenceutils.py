@@ -8,14 +8,16 @@
 #
 # Licensed under GNU Lesser General Public License v3.0
 #
-import numpy as np
 import os
 import pickle
+from copy import deepcopy
+
+import numpy as np
 import pytest
 from conftest import TEST_DATA_DIR
-from copy import deepcopy
-from deeplabcut.core import inferenceutils
 from scipy.spatial.distance import squareform
+
+from deeplabcut.core import inferenceutils
 
 
 def test_conv_square_to_condensed_indices():
@@ -25,7 +27,7 @@ def test_conv_square_to_condensed_indices():
     mat[rows, cols] = mat[cols, rows] = np.arange(1, len(rows) + 1)
     vec = squareform(mat)
     vals = []
-    for i, j in zip(rows, cols):
+    for i, j in zip(rows, cols, strict=False):
         ind = inferenceutils._conv_square_to_condensed_indices(i, j, n)
         vals.append(vec[ind])
     np.testing.assert_equal(vec, vals)

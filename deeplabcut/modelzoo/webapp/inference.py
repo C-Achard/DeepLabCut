@@ -8,7 +8,6 @@
 #
 # Licensed under GNU Lesser General Public License v3.0
 #
-from typing import Dict
 
 import numpy as np
 
@@ -96,15 +95,15 @@ class SuperanimalPyTorchInference:
     def config(self):
         return self._config
 
-    def predict(self, frames: Dict[str, np.array]):
+    def predict(self, frames: dict[str, np.array]):
 
         input_images = np.array(list(frames.values()), dtype=float)
 
         bbox_predictions = self.models.detector_runner.inference(images=input_images)
-        input_images = list(zip(input_images, bbox_predictions))
+        input_images = list(zip(input_images, bbox_predictions, strict=False))
         predictions = self.models.pose_runner.inference(images=input_images)
         predictions = [{("markers" if k == "bodyparts" else k): v for k, v in d.items()} for d in predictions]
-        predictions = [{**item[1], "image_path": item[0]} for item in zip(frames.keys(), predictions)]
+        predictions = [{**item[1], "image_path": item[0]} for item in zip(frames.keys(), predictions, strict=False)]
         responses = {
             "joint_names": self.config["bodyparts"],
             "predictions": predictions,

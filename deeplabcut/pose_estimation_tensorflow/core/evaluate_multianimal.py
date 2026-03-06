@@ -9,25 +9,25 @@
 # Licensed under GNU Lesser General Public License v3.0
 #
 
-import imgaug.augmenters as iaa
 import os
 import pickle
 from pathlib import Path
+
+import imgaug.augmenters as iaa
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
-from typing import List
 
 from deeplabcut.core import crossvalutils
 from deeplabcut.core.crossvalutils import find_closest_neighbors
+from deeplabcut.pose_estimation_tensorflow.config import load_config
 from deeplabcut.pose_estimation_tensorflow.core.evaluate import (
-    make_results_file,
-    keypoint_error,
     get_available_requested_snapshots,
     get_snapshots_by_index,
+    keypoint_error,
+    make_results_file,
 )
 from deeplabcut.pose_estimation_tensorflow.training import return_train_network_path
-from deeplabcut.pose_estimation_tensorflow.config import load_config
 from deeplabcut.utils import visualization
 
 
@@ -56,7 +56,7 @@ def _compute_stats(df):
 def _calc_prediction_error(data):
     _ = data.pop("metadata", None)
     dists = []
-    for n, dict_ in enumerate(tqdm(data.values())):
+    for _n, dict_ in enumerate(tqdm(data.values())):
         gt = np.concatenate(dict_["groundtruth"][1])
         xy = np.concatenate(dict_["prediction"]["coordinates"][0])
         p = np.concatenate(dict_["prediction"]["confidence"])
@@ -88,7 +88,7 @@ def _calc_train_test_error(data, metadata, pcutoff=0.3):
 
 def evaluate_multianimal_full(
     config,
-    Shuffles=[1],
+    Shuffles=None,
     trainingsetindex=0,
     plotting=False,
     show_errors=True,
@@ -96,21 +96,25 @@ def evaluate_multianimal_full(
     gputouse=None,
     modelprefix="",
     per_keypoint_evaluation: bool = False,
-    snapshots_to_evaluate: List[str] = None,
+    snapshots_to_evaluate: list[str] = None,
 ):
+    import tensorflow as tf
+
     from deeplabcut.pose_estimation_tensorflow.core import (
         predict,
+    )
+    from deeplabcut.pose_estimation_tensorflow.core import (
         predict_multianimal as predictma,
     )
     from deeplabcut.utils import (
-        auxiliaryfunctions,
         auxfun_multianimal,
         auxfun_videos,
+        auxiliaryfunctions,
         conversioncode,
     )
 
-    import tensorflow as tf
-
+    if Shuffles is None:
+        Shuffles = [1]
     if "TF_CUDNN_USE_AUTOTUNE" in os.environ:
         del os.environ["TF_CUDNN_USE_AUTOTUNE"]  # was potentially set during training
 
@@ -326,7 +330,7 @@ def evaluate_multianimal_full(
                             temp["bodyparts"] = (
                                 temp["bodyparts"]
                                 .replace(
-                                    dict(zip(joints, range(len(joints)))),
+                                    dict(zip(joints, range(len(joints)), strict=False)),
                                 )
                                 .infer_objects(copy=False)
                             )

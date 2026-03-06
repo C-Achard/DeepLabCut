@@ -11,6 +11,7 @@
 """Tests for deeplabcut/generate_training_dataset/metadata.py"""
 
 from __future__ import annotations
+
 import pickle
 
 import pytest
@@ -77,7 +78,7 @@ def test_load_metadata(tmpdir, data: dict, load_splits: bool):
     print(data["splits"])
     print()
 
-    for name, s in data["shuffles"].items():
+    for _name, s in data["shuffles"].items():
         split = data["splits"][s["split"]]
         train, test = split["train"], split["test"]
         _create_doc_data(cfg, trainset_dir, s["train_fraction"], s["index"], train, test)
@@ -166,7 +167,7 @@ def test_save_metadata_simple(tmpdir, data):
     print(trainset_meta)
 
     trainset_meta.save()
-    with open(meta_path, "r") as f:
+    with open(meta_path) as f:
         meta = YAML().load(f)
     print(data)
     print(meta)
@@ -322,7 +323,7 @@ def test_create_metadata_from_shuffles(tmpdir, shuffles):
     print(trainset_metadata)
     assert len(trainset_metadata.shuffles) == len(shuffles)
 
-    for shuffle_data, shuffle in zip(shuffles, trainset_metadata.shuffles):
+    for shuffle_data, shuffle in zip(shuffles, trainset_metadata.shuffles, strict=False):
         print(shuffle.index)
         assert shuffle_data["idx"] == shuffle.index
         assert shuffle_data["train_fraction"] == shuffle.train_fraction

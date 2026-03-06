@@ -112,7 +112,7 @@ class COCOLoader(Loader):
         if not os.path.exists(json_path):
             raise FileNotFoundError(f"File {json_path} does not exist.")
 
-        with open(json_path, "r") as f:
+        with open(json_path) as f:
             json_obj = json.load(f)
 
         if not isinstance(json_obj, dict):
@@ -145,13 +145,13 @@ class COCOLoader(Loader):
                 warnings.warn(
                     f"Found a category with ID 0 ({cat}) in the COCO dataset. This is not"
                     f" allowed, as category ID 0 is reserved as the background ID for"
-                    f" torchvision detectors. All category IDs have been shifted by 1."
+                    f" torchvision detectors. All category IDs have been shifted by 1.", stacklevel=2
                 )
 
         if len(coco_json["categories"]) > 1:
             warnings.warn(
-                f"Found more than 1 category in the project. This is currently not"
-                f" supported in DeepLabCut. All annotations will be given category 1"
+                "Found more than 1 category in the project. This is currently not"
+                " supported in DeepLabCut. All annotations will be given category 1", stacklevel=2
             )
 
         if cat_0:
@@ -200,7 +200,7 @@ class COCOLoader(Loader):
                 image_ids.add(image["id"])
 
         if len(missing_images) > 0:
-            warnings.warn(f"There are {len(missing_images)} images that cannot be found (here are some):")
+            warnings.warn(f"There are {len(missing_images)} images that cannot be found (here are some):", stacklevel=2)
             for img_id, file_name in missing_images.items():
                 print(f"  * {img_id}: {file_name}")
 
@@ -221,7 +221,7 @@ class COCOLoader(Loader):
 
         if len(coco_json["annotations"]) < len(validated_annotations):
             warnings.warn(
-                f"Found some annotations for which the image ID was not in the images. Removing them from the dataset."
+                "Found some annotations for which the image ID was not in the images. Removing them from the dataset.", stacklevel=2
             )
             print(f"  All annotations: {len(coco_json['annotations'])}")
             print(f"  Annotations with correct image IDs: {len(validated_annotations)}")

@@ -11,6 +11,7 @@
 from PySide6 import QtWidgets
 from PySide6.QtCore import Qt
 
+import deeplabcut
 from deeplabcut.gui.components import (
     BodypartListWidget,
     DefaultTab,
@@ -21,12 +22,10 @@ from deeplabcut.gui.components import (
     _create_vertical_layout,
 )
 
-import deeplabcut
-
 
 class CreateVideos(DefaultTab):
     def __init__(self, root, parent, h1_description):
-        super(CreateVideos, self).__init__(root, parent, h1_description)
+        super().__init__(root, parent, h1_description)
 
         self.bodyparts_to_use = self.root.all_bodyparts
         self._set_page()
@@ -271,7 +270,7 @@ class CreateVideos(DefaultTab):
         if all(videos_created):
             self.root.writer.write("Labeled videos created.")
         else:
-            failed_videos = [video for success, video in zip(videos_created, videos) if not success]
+            failed_videos = [video for success, video in zip(videos_created, videos, strict=False) if not success]
             failed_videos_str = ", ".join(failed_videos)
             self.root.writer.write(f"Failed to create videos from {failed_videos_str}.")
 

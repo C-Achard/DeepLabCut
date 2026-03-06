@@ -27,9 +27,9 @@ import deeplabcut.pose_estimation_pytorch.runners.schedulers as schedulers
 from deeplabcut.pose_estimation_pytorch.models.detectors import BaseDetector
 from deeplabcut.pose_estimation_pytorch.models.model import PoseModel
 from deeplabcut.pose_estimation_pytorch.runners.base import (
-    attempt_snapshot_load,
     ModelType,
     Runner,
+    attempt_snapshot_load,
 )
 from deeplabcut.pose_estimation_pytorch.runners.logger import (
     BaseLogger,
@@ -233,7 +233,7 @@ class TrainingRunner(Runner, Generic[ModelType], metaclass=ABCMeta):
 
             epoch_metrics = self._metadata.get("metrics")
             if e % self.eval_interval == 0 and epoch_metrics is not None and len(epoch_metrics) > 0:
-                logging.info(f"Model performance:")
+                logging.info("Model performance:")
                 line_length = max([len(name) for name in epoch_metrics.keys()]) + 2
                 for name, score in epoch_metrics.items():
                     logging.info(f"  {(name + ':').ljust(line_length)}{score:6.2f}")
@@ -507,7 +507,7 @@ class PoseTrainingRunner(TrainingRunner[PoseModel]):
             gt_keypoints,
             pred_keypoints,
             scales,
-            offsets,
+            offsets, strict=False,
         ):
             ground_truth = gt.detach().cpu().numpy()
             pred = pred.copy()
@@ -636,7 +636,7 @@ class DetectorTrainingRunner(TrainingRunner[BaseDetector]):
     ) -> None:
         """Updates the stored predictions with a new batch"""
         for img_path, img_size, img_bboxes, img_pred, scale, offset in zip(
-            paths, sizes, bboxes, predictions, scales, offsets
+            paths, sizes, bboxes, predictions, scales, offsets, strict=False
         ):
             scale_x, scale_y = scale
             scale_factors = np.array([scale_x, scale_y, scale_x, scale_y])

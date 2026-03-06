@@ -30,14 +30,14 @@ from deeplabcut.core.engine import Engine
 from deeplabcut.modelzoo.utils import get_superanimal_colormaps
 from deeplabcut.pose_estimation_pytorch.apis.ctd import get_condition_provider
 from deeplabcut.pose_estimation_pytorch.apis.utils import (
-    get_detector_inference_runner,
     build_predictions_dataframe,
+    get_detector_inference_runner,
+    get_filtered_coco_detector_inference_runner,
     get_model_snapshots,
     get_pose_inference_runner,
     get_scorer_name,
     get_scorer_uid,
     parse_snapshot_index_for_analysis,
-    get_filtered_coco_detector_inference_runner,
 )
 from deeplabcut.pose_estimation_pytorch.data.ctd import CondFromModel
 from deeplabcut.pose_estimation_pytorch.modelzoo.utils import update_config
@@ -467,7 +467,7 @@ def analyze_image_folder(
     if pose_task == Task.TOP_DOWN and detector_path is None and filtered_detector_config is None:
         raise ValueError(
             "A detector path or filtered_detector_config must be specified for image analysis using top-down models"
-            f" Please specify the `detector_path` parameter or the `filtered_detector_config` parameter."
+            " Please specify the `detector_path` parameter or the `filtered_detector_config` parameter."
         )
 
     if max_individuals is None:
@@ -479,7 +479,7 @@ def analyze_image_folder(
     if pose_task == Task.COND_TOP_DOWN and cond_provider is None:
         raise ValueError(
             "A conditions provider must be specified for image analysis when using cond-top-down models"
-            f" Please specify the `cond_provider` parameter."
+            " Please specify the `cond_provider` parameter."
         )
 
     pose_runner = get_pose_inference_runner(
@@ -529,7 +529,7 @@ def analyze_image_folder(
     if detector_runner is not None:
         detector_image_paths = tqdm(image_paths) if progress_bar else image_paths
         bbox_predictions = detector_runner.inference(images=detector_image_paths)
-        pose_inputs = list(zip(image_paths, bbox_predictions))
+        pose_inputs = list(zip(image_paths, bbox_predictions, strict=False))
 
     logging.info(f"Running pose estimation with {snapshot_path}")
 
@@ -538,7 +538,7 @@ def analyze_image_folder(
 
     predictions = pose_runner.inference(pose_inputs)
 
-    return {image_path: image_predictions for image_path, image_predictions in zip(image_paths, predictions)}
+    return {image_path: image_predictions for image_path, image_predictions in zip(image_paths, predictions, strict=False)}
 
 
 def plot_images_coco(
@@ -574,7 +574,7 @@ def plot_images_coco(
     Raises:
         ValueError: if a top-down model configuration is given but detector_path is None
     """
-    with open(data_json_path, "r") as f:
+    with open(data_json_path) as f:
         obj = json.load(f)
 
     coco_images = obj["images"]

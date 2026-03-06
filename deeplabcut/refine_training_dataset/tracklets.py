@@ -8,13 +8,15 @@
 #
 # Licensed under GNU Lesser General Public License v3.0
 #
-import numpy as np
-import pandas as pd
 import pickle
 import re
+
+import numpy as np
+import pandas as pd
+from tqdm import trange
+
 from deeplabcut.post_processing import columnwise_spline_interp
 from deeplabcut.utils import auxiliaryfunctions
-from tqdm import trange
 
 
 class TrackletManager:
@@ -81,9 +83,10 @@ class TrackletManager:
         # Sort tracklets by length to prioritize greater continuity
         temp = sorted(tracklets.values(), key=len)
         if not len(temp):
-            raise IOError("Tracklets are empty.")
+            raise OSError("Tracklets are empty.")
 
-        get_frame_ind = lambda s: int(re.findall(r"\d+", s)[0])
+        def get_frame_ind(s):
+            return int(re.findall(r"\d+", s)[0])
 
         # Drop tracklets that are too short
         tracklets_sorted = []
@@ -104,7 +107,7 @@ class TrackletManager:
             tracklets_single = np.full((self.nframes, len(bodyparts_single) * 3), np.nan, np.float16)
             for _ in trange(len(tracklets_sorted)):
                 tracklet = tracklets_sorted.pop()
-                inds, temp = zip(*[(get_frame_ind(k), v) for k, v in tracklet.items()])
+                inds, temp = zip(*[(get_frame_ind(k), v) for k, v in tracklet.items()], strict=False)
                 inds = np.asarray(inds)
                 data = np.asarray(temp, dtype=np.float16)
                 data_single = data[:, mask_single]
@@ -158,7 +161,7 @@ class TrackletManager:
                             better = np.flatnonzero(prob > 0)
                             idx = closest[better]
                             rows, cols = np.nonzero(has_data)
-                            for i, j in zip(idx, better):
+                            for i, j in zip(idx, better, strict=False):
                                 sl = slice(j * 3, j * 3 + 3)
                                 tracklets_multi[i, inds[rows[sl]], cols[sl]] = remaining.flat[sl]
                     else:
@@ -194,7 +197,7 @@ class TrackletManager:
                 self.nindividuals
             ] * len(bodyparts_single)
             bps = bodyparts_multi + bodyparts_single
-            map_ = dict(zip(bps, range(len(bps))))
+            map_ = dict(zip(bps, range(len(bps)), strict=False))
             self.tracklet2bp = [map_[bp] for bp in self.bodyparts[::3]]
             self._label_pairs = self.get_label_pairs()
         else:
@@ -252,9 +255,9 @@ class TrackletManager:
         self.prob = self.data[:, :, 2]
         individuals = idx.get_level_values("individuals")
         self.individuals = individuals.unique().to_list()
-        self.tracklet2id = individuals.map(dict(zip(self.individuals, range(len(self.individuals))))).tolist()[::3]
+        self.tracklet2id = individuals.map(dict(zip(self.individuals, range(len(self.individuals)), strict=False))).tolist()[::3]
         bodyparts = self.bodyparts.unique()
-        self.tracklet2bp = self.bodyparts.map(dict(zip(bodyparts, range(len(bodyparts))))).tolist()[::3]
+        self.tracklet2bp = self.bodyparts.map(dict(zip(bodyparts, range(len(bodyparts)), strict=False))).tolist()[::3]
         self._label_pairs = list(idx.droplevel(["scorer", "coords"]).unique())
         self._xy = self.xy.copy()
 
@@ -300,7 +303,7 @@ class TrackletManager:
             temp_pairs = np.where(mat)
             # Get only those bodypart pairs that belong to different individuals
             pairs = []
-            for a, b in zip(*temp_pairs):
+            for a, b in zip(*temp_pairs, strict=False):
                 if self.tracklet2id[a] != self.tracklet2id[b]:
                     pairs.append((a, b))
             self.swapping_pairs = pairs
@@ -313,7 +316,7 @@ class TrackletManager:
         swap_inds = self.get_swap_indices(tracklet1, tracklet2)
         inds = np.insert(swap_inds, [0, len(swap_inds)], [0, self.nframes])
         mask = np.ones_like(self.times, dtype=bool)
-        for i, j in zip(inds[::2], inds[1::2]):
+        for i, j in zip(inds[::2], inds[1::2], strict=False):
             mask[i:j] = False
         return mask
 
@@ -323,7 +326,7 @@ class TrackletManager:
 
     def format_multiindex(self):
         scorer = self.scorer * len(self.bodyparts)
-        map_ = dict(zip(range(len(self.individuals)), self.individuals))
+        map_ = dict(zip(range(len(self.individuals)), self.individuals, strict=False))
         individuals = [map_[ind] for ind in self.tracklet2id for _ in range(3)]
         coords = ["x", "y", "likelihood"] * len(self.tracklet2id)
         return pd.MultiIndex.from_arrays(

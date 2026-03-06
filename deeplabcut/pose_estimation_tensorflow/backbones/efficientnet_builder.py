@@ -16,6 +16,7 @@
 import functools
 import os
 import re
+
 import tensorflow as tf
 
 import deeplabcut.pose_estimation_tensorflow.backbones.efficientnet_model as efficientnet_model
@@ -41,7 +42,7 @@ def efficientnet_params(model_name):
     return params_dict[model_name]
 
 
-class BlockDecoder(object):
+class BlockDecoder:
     """Block Decoder for readability."""
 
     def _decode_block_string(self, block_string):
@@ -76,13 +77,13 @@ class BlockDecoder(object):
             "r%d" % block.num_repeat,
             "k%d" % block.kernel_size,
             "s%d%d" % (block.strides[0], block.strides[1]),
-            "e%s" % block.expand_ratio,
+            f"e{block.expand_ratio}",
             "i%d" % block.input_filters,
             "o%d" % block.output_filters,
             "c%d" % block.conv_type,
         ]
         if block.se_ratio > 0 and block.se_ratio <= 1:
-            args.append("se%s" % block.se_ratio)
+            args.append(f"se{block.se_ratio}")
         if block.id_skip is False:
             args.append("noskip")
         return "_".join(args)
@@ -186,7 +187,7 @@ def get_model_params(model_name, override_params):
         width_coefficient, depth_coefficient, _, dropout_rate = efficientnet_params(model_name)
         blocks_args, global_params = efficientnet(width_coefficient, depth_coefficient, dropout_rate)
     else:
-        raise NotImplementedError("model name is not pre-defined: %s" % model_name)
+        raise NotImplementedError(f"model name is not pre-defined: {model_name}")
 
     if override_params:
         # ValueError will be raised here if override_params has fields not included
@@ -238,10 +239,10 @@ def build_model(
             if not tf.io.gfile.exists(model_dir):
                 tf.io.gfile.makedirs(model_dir)
             with tf.io.gfile.GFile(param_file, "w") as f:
-                tf.compat.v1.logging.info("writing to %s" % param_file)
-                f.write("model_name= %s\n\n" % model_name)
-                f.write("global_params= %s\n\n" % str(global_params))
-                f.write("blocks_args= %s\n\n" % str(blocks_args))
+                tf.compat.v1.logging.info(f"writing to {param_file}")
+                f.write(f"model_name= {model_name}\n\n")
+                f.write(f"global_params= {str(global_params)}\n\n")
+                f.write(f"blocks_args= {str(blocks_args)}\n\n")
 
     with tf.compat.v1.variable_scope(model_name):
         model = efficientnet_model.Model(blocks_args, global_params)

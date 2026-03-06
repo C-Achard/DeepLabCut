@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import warnings
 from collections import defaultdict
-from functools import reduce, lru_cache
+from functools import cache, reduce
 from pathlib import Path
 
 import albumentations as A
@@ -20,7 +20,7 @@ import numpy as np
 from PIL import Image
 
 
-@lru_cache(maxsize=None)
+@cache
 def read_image_shape_fast(path: str | Path) -> tuple[int, int, int]:
     """Blazing fast and does not load the image into memory"""
     with Image.open(path) as img:
@@ -302,7 +302,7 @@ def _extract_keypoints_and_bboxes(
     anns_to_merge = []
     unique_keypoints = None
     h, w = image_shape[:2]
-    for i, annotation in enumerate(anns):
+    for _i, annotation in enumerate(anns):
         keypoints_individual = _annotation_to_keypoints(annotation, h, w)
         if annotation["individual"] != "single":
             bbox_individual = annotation["bbox"]
@@ -492,7 +492,7 @@ def _apply_transform(
     )
 
     bboxes_out = np.zeros(bboxes.shape)
-    for bbox, bbox_id in zip(transformed["bboxes"], transformed["bbox_labels"]):
+    for bbox, bbox_id in zip(transformed["bboxes"], transformed["bbox_labels"], strict=False):
         bboxes_out[bbox_id] = bbox
 
     transformed["bboxes"] = bboxes_out

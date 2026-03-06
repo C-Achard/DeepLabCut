@@ -8,7 +8,7 @@
 #
 # Licensed under GNU Lesser General Public License v3.0
 #
-from typing import Dict, Any
+from typing import Any
 
 import torch
 
@@ -64,10 +64,10 @@ class Scheduler:
         self.noise_seed = noise_seed if noise_seed is not None else 42
         self.update_groups(self.base_values)
 
-    def state_dict(self) -> Dict[str, Any]:
+    def state_dict(self) -> dict[str, Any]:
         return {key: value for key, value in self.__dict__.items() if key != "optimizer"}
 
-    def load_state_dict(self, state_dict: Dict[str, Any]) -> None:
+    def load_state_dict(self, state_dict: dict[str, Any]) -> None:
         self.__dict__.update(state_dict)
 
     def get_epoch_values(self, epoch: int):
@@ -93,7 +93,7 @@ class Scheduler:
     def update_groups(self, values):
         if not isinstance(values, (list, tuple)):
             values = [values] * len(self.optimizer.param_groups)
-        for param_group, value in zip(self.optimizer.param_groups, values):
+        for param_group, value in zip(self.optimizer.param_groups, values, strict=False):
             param_group[self.param_group_field] = value
 
     def _add_noise(self, lrs, t):

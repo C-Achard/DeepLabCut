@@ -11,7 +11,7 @@
 
 import torch
 import torch.nn.functional as F
-from einops import rearrange, repeat
+from einops import rearrange
 
 
 class Residual(torch.nn.Module):
@@ -173,7 +173,7 @@ class Attention(torch.nn.Module):
         Returns:
             Output tensor.
         """
-        b, n, _, h = *x.shape, self.heads
+        _b, _n, _, h = *x.shape, self.heads
         qkv = self.to_qkv(x).chunk(3, dim=-1)
         q, k, v = map(lambda t: rearrange(t, "b n (h d) -> b h n d", h=h), qkv)
 

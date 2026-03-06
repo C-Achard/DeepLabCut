@@ -29,7 +29,7 @@ from deeplabcut.pose_estimation_pytorch.task import Task
 def test_load_weights_only_with_build_training_runner(task: Task, weights_only: bool):
     with patch("deeplabcut.pose_estimation_pytorch.runners.base.torch.load") as load:
         snapshot = "snapshot.pt"
-        runner = inference.build_inference_runner(
+        inference.build_inference_runner(
             task=task,
             model=Mock(),
             device="cpu",
@@ -88,7 +88,7 @@ def test_mock_bottom_up(batch_size):
 
     _check_batch_shapes(batch_size, h, w, runner.batch_shapes)
     assert len(images) == len(predictions)
-    for i, p in zip(images, predictions):
+    for i, p in zip(images, predictions, strict=False):
         assert len(p) == 1  # only 1 output per image
         assert i[0, 0, 0, 0] == p[0]["mock"]["index"]
 
@@ -140,9 +140,9 @@ def test_mock_top_down(batch_size, detections_per_image):
     _check_batch_shapes(batch_size, h, w, runner.batch_shapes)
 
     assert len(images) == len(predictions)
-    for i, p in zip(images, predictions):
+    for i, p in zip(images, predictions, strict=False):
         assert len(p) == len(i)  # one prediction per input
-        for i_det, p_det in zip(i, p):
+        for i_det, p_det in zip(i, p, strict=False):
             print(i_det.shape)
             print(p_det["mock"]["index"])
             assert i_det[0, 0, 0] == p_det["mock"]["index"]

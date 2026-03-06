@@ -21,13 +21,14 @@ This script tests various functionalities in an automatic way.
 It produces nothing of interest scientifically.
 """
 
-import os, deeplabcut
-import zipfile, urllib.request, shutil
-from datetime import datetime as dt
 import glob
-from pathlib import Path
+import os
+import shutil
 import subprocess
+import zipfile
+from pathlib import Path
 
+import deeplabcut
 
 if __name__ == "__main__":
     print("Imported DLC!")
@@ -154,13 +155,13 @@ if __name__ == "__main__":
     for idx, name in enumerate(cam1_images):
         os.rename(
             name,
-            os.path.join(cwd, str("camera-1_" + "{0:0=2d}".format(idx + 1) + ".jpg")),
+            os.path.join(cwd, str("camera-1_" + f"{idx + 1:0=2d}" + ".jpg")),
         )
 
     for idx, name in enumerate(cam2_images):
         os.rename(
             name,
-            os.path.join(cwd, str("camera-2_" + "{0:0=2d}".format(idx + 1) + ".jpg")),
+            os.path.join(cwd, str("camera-2_" + f"{idx + 1:0=2d}" + ".jpg")),
         )
 
     # Removing some of the images where the corner was not detected

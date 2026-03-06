@@ -444,7 +444,7 @@ class SORTEllipse(SORTBase):
             unmatched_detections = [i for i, _ in enumerate(ellipses) if i not in row_indices]
             unmatched_trackers = [j for j, _ in enumerate(trackers) if j not in col_indices]
             matches = []
-            for row, col in zip(row_indices, col_indices):
+            for row, col in zip(row_indices, col_indices, strict=False):
                 val = cost_matrix[row, col]
                 # diff = val - cost_matrix
                 # diff[row, col] += val
@@ -703,7 +703,7 @@ class SORTBox(SORTBase):
 
         # filter out matched with low IOU
         matches = []
-        for row, col in zip(row_indices, col_indices):
+        for row, col in zip(row_indices, col_indices, strict=False):
             if iou_matrix[row, col] < iou_threshold:
                 unmatched_detections.append(row)
                 unmatched_trackers.append(col)

@@ -18,8 +18,8 @@ from deeplabcut.pose_estimation_pytorch.models.criterions import (
     BaseLossAggregator,
 )
 from deeplabcut.pose_estimation_pytorch.models.heads.base import (
-    BaseHead,
     HEADS,
+    BaseHead,
     WeightConversionMixin,
 )
 from deeplabcut.pose_estimation_pytorch.models.predictors import BasePredictor
@@ -193,7 +193,7 @@ class DeconvModule(nn.Module):
             the deconvolutional layers
         """
         layers = []
-        for out_channels, k, s in zip(out_channels, kernel_sizes, strides):
+        for out_channels, k, s in zip(out_channels, kernel_sizes, strides, strict=False):
             layers.append(nn.ConvTranspose2d(in_channels, out_channels, kernel_size=k, stride=s))
             layers.append(nn.ReLU())
             in_channels = out_channels

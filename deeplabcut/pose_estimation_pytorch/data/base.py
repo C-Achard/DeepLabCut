@@ -25,7 +25,7 @@ from deeplabcut.pose_estimation_pytorch.data.dataset import (
 from deeplabcut.pose_estimation_pytorch.data.generative_sampling import (
     GenSamplingConfig,
 )
-from deeplabcut.pose_estimation_pytorch.data.snapshots import list_snapshots, Snapshot
+from deeplabcut.pose_estimation_pytorch.data.snapshots import Snapshot, list_snapshots
 from deeplabcut.pose_estimation_pytorch.data.utils import (
     _compute_crop_bounds,
     bbox_from_keypoints,
@@ -334,7 +334,7 @@ class Loader(ABC):
             return annotations
 
         elif method == "gt":
-            for i, annotation in enumerate(annotations):
+            for _i, annotation in enumerate(annotations):
                 if "bbox" not in annotation:
                     # or do something else?
                     raise ValueError(

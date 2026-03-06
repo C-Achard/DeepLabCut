@@ -13,8 +13,9 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from collections.abc import Callable
 from pathlib import Path
-from typing import Any, TypeVar, Callable
+from typing import Any, TypeVar
 
 import albumentations as A
 import numpy as np
@@ -22,7 +23,6 @@ import torch
 
 from deeplabcut.pose_estimation_pytorch.data.image import load_image, top_down_crop
 from deeplabcut.pose_estimation_pytorch.data.utils import bbox_from_keypoints
-
 
 Image = TypeVar("Image", torch.Tensor, np.ndarray, str, Path)
 Context = TypeVar("Context", dict[str, Any], None)
@@ -270,14 +270,14 @@ class AugmentImage(Preprocessor):
 
                 updated_offsets = [
                     AugmentImage.update_offset(offset, scale, new_offset)
-                    for offset, scale, new_offset in zip(offsets, scales, new_offsets)
+                    for offset, scale, new_offset in zip(offsets, scales, new_offsets, strict=False)
                 ]
                 updated_scales = [
-                    AugmentImage.update_scale(scale, new_scale) for scale, new_scale in zip(scales, new_scales)
+                    AugmentImage.update_scale(scale, new_scale) for scale, new_scale in zip(scales, new_scales, strict=False)
                 ]
             else:
                 updated_offsets = [
-                    AugmentImage.update_offset(offset, scale, new_offsets) for offset, scale in zip(offsets, scales)
+                    AugmentImage.update_offset(offset, scale, new_offsets) for offset, scale in zip(offsets, scales, strict=False)
                 ]
                 updated_scales = [AugmentImage.update_scale(scale, new_scales) for scale in scales]
         return updated_offsets, updated_scales

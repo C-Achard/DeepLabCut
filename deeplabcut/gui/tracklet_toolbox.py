@@ -8,20 +8,22 @@
 #
 # Licensed under GNU Lesser General Public License v3.0
 #
+from threading import Event
+
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import matplotlib.transforms as mtransforms
 import numpy as np
 import pandas as pd
-from threading import Event
+from matplotlib.path import Path
+from matplotlib.widgets import Button, CheckButtons, LassoSelector, Slider, TextBox
+from PySide6.QtCore import QMutex
+from PySide6.QtWidgets import QMessageBox
+
 from deeplabcut.gui.utils import move_to_separate_thread
 from deeplabcut.refine_training_dataset.tracklets import TrackletManager
 from deeplabcut.utils.auxfun_videos import VideoReader
 from deeplabcut.utils.auxiliaryfunctions import attempt_to_make_folder
-from matplotlib.path import Path
-from matplotlib.widgets import Slider, LassoSelector, Button, CheckButtons, TextBox
-from PySide6.QtWidgets import QMessageBox
-from PySide6.QtCore import QMutex
 
 
 class DraggablePoint:
@@ -767,7 +769,7 @@ class TrackletVisualizer:
             inds = self.picked + list(self.picked_pair)
         else:
             inds = self.manager.swapping_bodyparts
-        for n, (line_x, line_y) in enumerate(zip(self.lines_x, self.lines_y)):
+        for n, (line_x, line_y) in enumerate(zip(self.lines_x, self.lines_y, strict=False)):
             if n in inds:
                 line_x.set_data(self.manager.times, self.manager.xy[n, :, 0])
                 line_y.set_data(self.manager.times, self.manager.xy[n, :, 1])
@@ -839,6 +841,7 @@ class TrackletVisualizer:
 
     def export_to_training_data(self, pcutoff=0.1):
         import os
+
         from skimage import io
 
         inds = self.manager.find_edited_frames()

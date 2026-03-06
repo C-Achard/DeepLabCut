@@ -157,14 +157,14 @@ def get_gpu_memory_map():
         encoding="utf-8",
     )
     gpu_memory = [int(x) for x in result.strip().split("\n")]
-    gpu_memory_map = dict(zip(range(len(gpu_memory)), gpu_memory))
+    gpu_memory_map = dict(zip(range(len(gpu_memory)), gpu_memory, strict=False))
 
     return gpu_memory_map
 
 
 def select_device():
     if torch.cuda.is_available():
-        return torch.device(f"cuda:0")
+        return torch.device("cuda:0")
     else:
         return torch.device("cpu")
 
@@ -174,10 +174,10 @@ def raise_warning_if_called_directly():
     caller_frame = inspect.getouterframes(current_frame, 2)
     caller_name = caller_frame[1].filename
 
-    if not "pose_estimation_" in caller_name:
+    if "pose_estimation_" not in caller_name:
         warnings.warn(
             f"{caller_name} is intended for internal use only and should not be called directly.",
-            UserWarning,
+            UserWarning, stacklevel=2,
         )
 
 

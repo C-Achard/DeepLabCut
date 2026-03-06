@@ -21,7 +21,7 @@ class ConversionTableFromDict:
 
     def convert(self, kpt):
         if kpt not in self.table_dict:
-            warnings.warn(f"{kpt} is defined in src space but not appeared in the conversion table")
+            warnings.warn(f"{kpt} is defined in src space but not appeared in the conversion table", stacklevel=2)
             return None
         else:
             return self.table_dict[kpt]
@@ -119,7 +119,7 @@ class ConversionTableFromCSV:
 
     def convert(self, kpt):
         if kpt not in self.table:
-            warnings.warn(f"{kpt} is defined in src space but not appeared in the conversion table")
+            warnings.warn(f"{kpt} is defined in src space but not appeared in the conversion table", stacklevel=2)
             return None
         else:
             return self.table[kpt]
@@ -128,7 +128,7 @@ class ConversionTableFromCSV:
 
         bodyparts = self.df[labname]
 
-        super_bodyparts = self.df["MasterName"]
+        self.df["MasterName"]
 
         ret = []
 

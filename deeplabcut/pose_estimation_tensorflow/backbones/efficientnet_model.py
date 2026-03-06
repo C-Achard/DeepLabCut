@@ -21,6 +21,7 @@
 
 import collections
 import math
+
 import numpy as np
 import tensorflow as tf
 
@@ -118,7 +119,7 @@ def round_filters(filters, global_params):
     # Make sure that round down does not go down by more than 10%.
     if new_filters < 0.9 * filters:
         new_filters += divisor
-    tf.compat.v1.logging.info("round_filter input={} output={}".format(orig_f, new_filters))
+    tf.compat.v1.logging.info(f"round_filter input={orig_f} output={new_filters}")
     return int(new_filters)
 
 
@@ -142,7 +143,7 @@ class MBConvBlock(tf.keras.layers.Layer):
           block_args: BlockArgs, arguments to create a Block.
           global_params: GlobalParams, a set of global parameters.
         """
-        super(MBConvBlock, self).__init__()
+        super().__init__()
         self._block_args = block_args
         self._batch_norm_momentum = global_params.batch_norm_momentum
         self._batch_norm_epsilon = global_params.batch_norm_epsilon
@@ -252,7 +253,7 @@ class MBConvBlock(tf.keras.layers.Layer):
         """
         se_tensor = tf.reduce_mean(input_tensor=input_tensor, axis=self._spatial_dims, keepdims=True)
         se_tensor = self._se_expand(self._relu_fn(self._se_reduce(se_tensor)))
-        tf.compat.v1.logging.info("Built Squeeze and Excitation with tensor shape: %s" % (se_tensor.shape))
+        tf.compat.v1.logging.info(f"Built Squeeze and Excitation with tensor shape: {se_tensor.shape}")
         return tf.sigmoid(se_tensor) * input_tensor
 
     def call(self, inputs, use_batch_norm=False, drop_out=False, drop_connect_rate=None):
@@ -264,15 +265,15 @@ class MBConvBlock(tf.keras.layers.Layer):
         Returns:
           A output tensor.
         """
-        tf.compat.v1.logging.info("Block input: %s shape: %s" % (inputs.name, inputs.shape))
+        tf.compat.v1.logging.info(f"Block input: {inputs.name} shape: {inputs.shape}")
         if self._block_args.expand_ratio != 1:
             x = self._relu_fn(self._bn0(self._expand_conv(inputs), training=use_batch_norm))
         else:
             x = inputs
-        tf.compat.v1.logging.info("Expand: %s shape: %s" % (x.name, x.shape))
+        tf.compat.v1.logging.info(f"Expand: {x.name} shape: {x.shape}")
 
         x = self._relu_fn(self._bn1(self._depthwise_conv(x), training=use_batch_norm))
-        tf.compat.v1.logging.info("DWConv: %s shape: %s" % (x.name, x.shape))
+        tf.compat.v1.logging.info(f"DWConv: {x.name} shape: {x.shape}")
 
         if self._has_se:
             with tf.compat.v1.variable_scope("se"):
@@ -290,7 +291,7 @@ class MBConvBlock(tf.keras.layers.Layer):
                 if drop_connect_rate:
                     x = utils.drop_connect(x, drop_out, drop_connect_rate)
                 x = tf.add(x, inputs)
-        tf.compat.v1.logging.info("Project: %s shape: %s" % (x.name, x.shape))
+        tf.compat.v1.logging.info(f"Project: {x.name} shape: {x.shape}")
         return x
 
 
@@ -341,12 +342,12 @@ class MBConvBlockWithoutDepthwise(MBConvBlock):
         Returns:
           A output tensor.
         """
-        tf.compat.v1.logging.info("Block input: %s shape: %s" % (inputs.name, inputs.shape))
+        tf.compat.v1.logging.info(f"Block input: {inputs.name} shape: {inputs.shape}")
         if self._block_args.expand_ratio != 1:
             x = self._relu_fn(self._bn0(self._expand_conv(inputs), training=use_batch_norm))
         else:
             x = inputs
-        tf.compat.v1.logging.info("Expand: %s shape: %s" % (x.name, x.shape))
+        tf.compat.v1.logging.info(f"Expand: {x.name} shape: {x.shape}")
 
         self.endpoints = {"expansion_output": x}
 
@@ -360,7 +361,7 @@ class MBConvBlockWithoutDepthwise(MBConvBlock):
                 if drop_connect_rate:
                     x = utils.drop_connect(x, drop_out, drop_connect_rate)
                 x = tf.add(x, inputs)
-        tf.compat.v1.logging.info("Project: %s shape: %s" % (x.name, x.shape))
+        tf.compat.v1.logging.info(f"Project: {x.name} shape: {x.shape}")
         return x
 
 
@@ -377,7 +378,7 @@ class Model(tf.keras.Model):
         Raises:
           ValueError: when blocks_args is not specified as a list.
         """
-        super(Model, self).__init__()
+        super().__init__()
         if not isinstance(blocks_args, list):
             raise ValueError("blocks_args should be a list.")
         self._global_params = global_params
@@ -474,7 +475,7 @@ class Model(tf.keras.Model):
         # Calls Stem layers
         with tf.compat.v1.variable_scope("stem"):
             outputs = self._relu_fn(self._bn0(self._conv_stem(inputs), training=use_batch_norm))
-        tf.compat.v1.logging.info("Built stem layers with output shape: %s" % outputs.shape)
+        tf.compat.v1.logging.info(f"Built stem layers with output shape: {outputs.shape}")
         self.endpoints["stem"] = outputs
 
         # Calls blocks.
@@ -485,25 +486,25 @@ class Model(tf.keras.Model):
                 is_reduction = True
                 reduction_idx += 1
 
-            with tf.compat.v1.variable_scope("blocks_%s" % idx):
+            with tf.compat.v1.variable_scope(f"blocks_{idx}"):
                 drop_rate = self._global_params.drop_connect_rate
                 if drop_rate:
                     drop_rate *= float(idx) / len(self._blocks)
-                    tf.compat.v1.logging.info("block_%s drop_connect_rate: %s" % (idx, drop_rate))
+                    tf.compat.v1.logging.info(f"block_{idx} drop_connect_rate: {drop_rate}")
                 outputs = block.call(
                     outputs,
                     use_batch_norm=use_batch_norm,
                     drop_out=drop_out,
                     drop_connect_rate=drop_rate,
                 )
-                self.endpoints["block_%s" % idx] = outputs
+                self.endpoints[f"block_{idx}"] = outputs
                 if is_reduction:
-                    self.endpoints["reduction_%s" % reduction_idx] = outputs
+                    self.endpoints[f"reduction_{reduction_idx}"] = outputs
                 if block.endpoints:
                     for k, v in block.endpoints.items():
-                        self.endpoints["block_%s/%s" % (idx, k)] = v
+                        self.endpoints[f"block_{idx}/{k}"] = v
                         if is_reduction:
-                            self.endpoints["reduction_%s/%s" % (reduction_idx, k)] = v
+                            self.endpoints[f"reduction_{reduction_idx}/{k}"] = v
         self.endpoints["features"] = outputs
 
         if not features_only:

@@ -43,7 +43,7 @@ from deeplabcut.pose_estimation_pytorch.runners import (
 from deeplabcut.pose_estimation_pytorch.runners.inference import InferenceConfig
 from deeplabcut.pose_estimation_pytorch.task import Task
 from deeplabcut.refine_training_dataset.stitch import stitch_tracklets
-from deeplabcut.utils import auxiliaryfunctions, VideoReader
+from deeplabcut.utils import VideoReader, auxiliaryfunctions
 
 
 class VideoIterator(VideoReader):
@@ -514,7 +514,7 @@ def analyze_videos(
     )
 
     detector_runner = None
-    detector_path, detector_snapshot = None, None
+    _detector_path, detector_snapshot = None, None
     if loader.pose_task == Task.TOP_DOWN and dynamic is None:
         if detector_snapshot_index is None:
             raise ValueError(

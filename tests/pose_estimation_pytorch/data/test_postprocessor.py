@@ -301,7 +301,7 @@ def test_prepare_top_down_backbone_features():
 
     assert len(predictions_out) == 2
     assert len(context_out) == 1
-    for preds, expected in zip(predictions_out, [[1, 2, 3], [11, 12, 13]]):
+    for preds, expected in zip(predictions_out, [[1, 2, 3], [11, 12, 13]], strict=False):
         assert "backbone" in preds
         assert "bodypart_features" in preds["backbone"]
         bodypart_features = preds["backbone"]["bodypart_features"]

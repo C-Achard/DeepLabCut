@@ -57,7 +57,7 @@ def _get_random_params(transform_idx):
 def test_build_transforms(transform_dict, size_image, num_keypoints, num_animals):
     transform_bbox_aug = transforms.build_transforms(transform_dict)
     w, h = size_image
-    for i in range(10):
+    for _i in range(10):
         test_image = np.random.randint(0, 255, (h, w, 3), dtype=np.uint8)
         bboxes = np.random.randint(0, min(w - 1, h - 1), (num_animals, 4))
         bboxes[:, 2] = w - bboxes[:, 0]
@@ -65,9 +65,9 @@ def test_build_transforms(transform_dict, size_image, num_keypoints, num_animals
         keypoints = np.random.randint(0, min(w, h), (num_keypoints, 2))
 
         with pytest.raises(Exception):
-            transformed = transform_bbox_aug(image=test_image)
-            transformed = transform_bbox_aug(image=test_image, bboxes=bboxes.copy())
-            transformed = transform_bbox_aug(image=test_image, keypoints=keypoints.copy(), bboxes=bboxes.copy())
+            transform_bbox_aug(image=test_image)
+            transform_bbox_aug(image=test_image, bboxes=bboxes.copy())
+            transform_bbox_aug(image=test_image, keypoints=keypoints.copy(), bboxes=bboxes.copy())
 
         transformed_with_bbox = transform_bbox_aug(
             image=test_image,

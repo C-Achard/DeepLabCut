@@ -31,7 +31,7 @@ def generate_random_lr_list(num_floats: int):
         ran_list: random list of sorted numbers, being first number bigger than the last
     """
     ran_list = []
-    for i in range(num_floats):
+    for _i in range(num_floats):
         random_floats = [random.random()]
         ran_list.append(random_floats)
     return sorted(ran_list, reverse=True)
@@ -249,7 +249,7 @@ def test_build_sequential_lr(data):
 
     print("RUNNING")
     lrs = []
-    for epoch in range(len(data["expected_lrs"])):
+    for _epoch in range(len(data["expected_lrs"])):
         lrs.append(scheduler.get_last_lr())
         print(scheduler.get_last_lr())
         scheduler.step()

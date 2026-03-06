@@ -15,11 +15,13 @@
 #
 
 import functools
+
 import numpy as np
 import tensorflow as tf
-from deeplabcut.pose_estimation_tensorflow.datasets import Batch
-from tensorflow.python.tpu.ops import tpu_ops
 from tensorflow.python.tpu import tpu_function
+from tensorflow.python.tpu.ops import tpu_ops
+
+from deeplabcut.pose_estimation_tensorflow.datasets import Batch
 
 
 def wrapper(func, *args, **kwargs):
@@ -110,7 +112,7 @@ def build_learning_rate(
     elif lr_decay_type == "constant":
         lr = initial_lr
     else:
-        assert False, "Unknown lr_decay_type : %s" % lr_decay_type
+        raise AssertionError(f"Unknown lr_decay_type : {lr_decay_type}")
 
     if warmup_epochs:
         tf.compat.v1.logging.info("Learning rate warmup_epochs: %d" % warmup_epochs)
@@ -147,7 +149,7 @@ class TpuBatchNormalization(tf.compat.v1.layers.BatchNormalization):
     def __init__(self, fused=False, **kwargs):
         if fused in (True, None):
             raise ValueError("TpuBatchNormalization does not support fused=True.")
-        super(TpuBatchNormalization, self).__init__(fused=fused, **kwargs)
+        super().__init__(fused=fused, **kwargs)
 
     @staticmethod
     def _cross_replica_average(t, num_shards_per_group):
@@ -167,7 +169,7 @@ class TpuBatchNormalization(tf.compat.v1.layers.BatchNormalization):
 
     def _moments(self, inputs, reduction_axes, keep_dims):
         """Compute the mean and variance: it overrides the original _moments."""
-        shard_mean, shard_variance = super(TpuBatchNormalization, self)._moments(
+        shard_mean, shard_variance = super()._moments(
             inputs, reduction_axes, keep_dims=keep_dims
         )
 
@@ -192,7 +194,7 @@ class BatchNormalization(tf.compat.v1.layers.BatchNormalization):
     """Fixed default name of BatchNormalization to match TpuBatchNormalization."""
 
     def __init__(self, name="tpu_batch_normalization", **kwargs):
-        super(BatchNormalization, self).__init__(name=name, **kwargs)
+        super().__init__(name=name, **kwargs)
 
 
 def drop_connect(inputs, is_training, drop_connect_rate):

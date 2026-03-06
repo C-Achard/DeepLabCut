@@ -18,16 +18,16 @@ import tensorflow as tf
 import tf_slim as slim
 
 from deeplabcut.pose_estimation_tensorflow.config import load_config
+from deeplabcut.pose_estimation_tensorflow.core.train import (
+    LearningRate,
+    get_optimizer,
+    setup_preloading,
+    start_preloading,
+)
 from deeplabcut.pose_estimation_tensorflow.datasets import PoseDatasetFactory
 from deeplabcut.pose_estimation_tensorflow.nnets import PoseNetFactory
 from deeplabcut.pose_estimation_tensorflow.nnets.utils import get_batch_spec
 from deeplabcut.pose_estimation_tensorflow.util.logging import setup_logging
-from deeplabcut.pose_estimation_tensorflow.core.train import (
-    setup_preloading,
-    start_preloading,
-    get_optimizer,
-    LearningRate,
-)
 from deeplabcut.utils import auxfun_models
 
 
@@ -222,10 +222,10 @@ def train(
             logging.info(
                 "iteration: {} loss: {} scmap loss: {} locref loss: {} limb loss: {} lr: {}".format(
                     it,
-                    "{0:.4f}".format(cumloss / display_iters),
-                    "{0:.4f}".format(partloss / display_iters),
-                    "{0:.4f}".format(locrefloss / display_iters),
-                    "{0:.4f}".format(pwloss / display_iters),
+                    f"{cumloss / display_iters:.4f}",
+                    f"{partloss / display_iters:.4f}",
+                    f"{locrefloss / display_iters:.4f}",
+                    f"{pwloss / display_iters:.4f}",
                     current_lr,
                 )
             )
@@ -234,10 +234,10 @@ def train(
                 lrf.write(
                     "iteration: {}, loss: {}, scmap loss: {}, locref loss: {}, limb loss: {}, lr: {}\n".format(
                         it,
-                        "{0:.4f}".format(cumloss / display_iters),
-                        "{0:.4f}".format(partloss / display_iters),
-                        "{0:.4f}".format(locrefloss / display_iters),
-                        "{0:.4f}".format(pwloss / display_iters),
+                        f"{cumloss / display_iters:.4f}",
+                        f"{partloss / display_iters:.4f}",
+                        f"{locrefloss / display_iters:.4f}",
+                        f"{pwloss / display_iters:.4f}",
                         current_lr,
                     )
                 )

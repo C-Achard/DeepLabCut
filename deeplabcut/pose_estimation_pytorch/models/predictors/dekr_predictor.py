@@ -15,8 +15,8 @@ import torch
 import torch.nn.functional as F
 
 from deeplabcut.pose_estimation_pytorch.models.predictors import (
-    BasePredictor,
     PREDICTORS,
+    BasePredictor,
 )
 
 
@@ -247,10 +247,10 @@ class DEKRPredictor(BasePredictor):
             # Assuming you have 'heatmap' tensor
             max_pooled_heatmap = predictor.max_pool(heatmap)
         """
-        pool1 = torch.nn.MaxPool2d(3, 1, 1)
+        torch.nn.MaxPool2d(3, 1, 1)
         pool2 = torch.nn.MaxPool2d(5, 1, 2)
-        pool3 = torch.nn.MaxPool2d(7, 1, 3)
-        map_size = (heatmap.shape[1] + heatmap.shape[2]) / 2.0
+        torch.nn.MaxPool2d(7, 1, 3)
+        (heatmap.shape[1] + heatmap.shape[2]) / 2.0
         maxm = pool2(heatmap)  # Here I think pool 2 is a good match for default 17 pos_dist_tresh
 
         return maxm

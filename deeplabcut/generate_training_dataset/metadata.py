@@ -41,7 +41,7 @@ class DataSplit:
             idx = np.array(indices)
             if not np.all(idx[:-1] < idx[1:]):
                 raise RuntimeError(
-                    f"The training and test indices in a data split must be sorted in strictly ascending order."
+                    "The training and test indices in a data split must be sorted in strictly ascending order."
                 )
 
 
@@ -55,7 +55,7 @@ class ShuffleMetadata:
     engine: Engine
     split: DataSplit | None
 
-    def load_split(self, cfg: dict, trainset_path: Path) -> "ShuffleMetadata":
+    def load_split(self, cfg: dict, trainset_path: Path) -> ShuffleMetadata:
         """Loads the data split for this shuffle
 
         Args:
@@ -137,7 +137,7 @@ class TrainingDatasetMetadata:
             ValueError if the indices are not sorted in increasing order
         """
         indices = [[s.train_fraction, s.index] for s in self.shuffles]
-        for (frac1, idx1), (frac2, idx2) in zip(indices[:-1], indices[1:]):
+        for (frac1, idx1), (frac2, idx2) in zip(indices[:-1], indices[1:], strict=False):
             if not (frac1 < frac2 or (frac1 == frac2 and idx1 < idx2)):
                 raise RuntimeError(
                     "The shuffles given must be sorted in order of ascending training "
@@ -243,7 +243,7 @@ class TrainingDatasetMetadata:
             cfg = config
 
         metadata_path = TrainingDatasetMetadata.path(cfg)
-        with open(metadata_path, "r") as file:
+        with open(metadata_path) as file:
             metadata = YAML(typ="safe", pure=True).load(file)
 
         shuffles = []

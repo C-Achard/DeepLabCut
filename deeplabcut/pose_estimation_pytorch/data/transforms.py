@@ -11,7 +11,8 @@
 from __future__ import annotations
 
 import warnings
-from typing import Any, Iterable, Sequence
+from collections.abc import Iterable, Sequence
+from typing import Any
 
 import albumentations as A
 import cv2
@@ -48,7 +49,7 @@ def build_transforms(augmentations: dict) -> A.BaseCompose:
         if symmetries is not None:
             transforms.append(HFlip(symmetries=symmetries, p=hflip_proba))
         else:
-            warnings.warn("Be careful! Do not train pose models with horizontal flips if you have symmetric keypoints!")
+            warnings.warn("Be careful! Do not train pose models with horizontal flips if you have symmetric keypoints!", stacklevel=2)
             transforms.append(A.HorizontalFlip(p=hflip_proba))
 
     if (affine := augmentations.get("affine")) is not None:
@@ -418,7 +419,7 @@ class Grayscale(A.ToGray):
     @staticmethod
     def _validate_alpha(val: float) -> float:
         if not 0.0 <= val <= 1.0:
-            warnings.warn("`alpha` will be clipped to the interval [0.0, 1.0].")
+            warnings.warn("`alpha` will be clipped to the interval [0.0, 1.0].", stacklevel=2)
         return min(1.0, max(0.0, val))
 
     @property
@@ -494,7 +495,7 @@ class ElasticTransform(A.ElasticTransform):
         sum_indices = np.sum(inds[:, None] * mask[None], axis=(2, 3)).T
         xy = sum_indices / div[:, None]
         new_keypoints = []
-        for kp, new_coords in zip(keypoints, xy):
+        for kp, new_coords in zip(keypoints, xy, strict=False):
             kp = list(kp)
             kp[:2] = new_coords
             new_keypoints.append(tuple(kp))
@@ -637,7 +638,7 @@ class RandomBBoxTransform(A.DualTransform):
         # add the extra information back; tuples for albumentations<=1.4.3
         bboxes_out = [tuple(bbox) for bbox in bbox_xyxy]
         if bboxes_extra is not None:
-            bboxes_out = [bbox + extra for bbox, extra in zip(bboxes_out, bboxes_extra)]
+            bboxes_out = [bbox + extra for bbox, extra in zip(bboxes_out, bboxes_extra, strict=False)]
         return bboxes_out
 
     def get_transform_init_args_names(self):

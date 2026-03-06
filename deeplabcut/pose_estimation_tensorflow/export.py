@@ -15,13 +15,12 @@ import shutil
 import tarfile
 from pathlib import Path
 
-import numpy as np
 import ruamel.yaml
 import tensorflow as tf
 
-from deeplabcut.utils import auxiliaryfunctions
 from deeplabcut.pose_estimation_tensorflow.config import load_config
 from deeplabcut.pose_estimation_tensorflow.core import predict
+from deeplabcut.utils import auxiliaryfunctions
 
 
 def create_deploy_config_template():
@@ -72,7 +71,7 @@ def write_deploy_config(configname, cfg):
             cfg_file[key] = cfg[key]
 
         # Adding default value for variable skeleton and skeleton_color for backward compatibility.
-        if not "skeleton" in cfg.keys():
+        if "skeleton" not in cfg.keys():
             cfg_file["skeleton"] = []
             cfg_file["skeleton_color"] = "black"
         ruamelFile.dump(cfg_file, cf)
@@ -116,7 +115,7 @@ def load_model(cfg, shuffle=1, trainingsetindex=0, TFGPUinference=True, modelpre
         cfg["project_path"],
         str(auxiliaryfunctions.get_model_folder(train_fraction, shuffle, cfg, modelprefix=modelprefix)),
     )
-    path_test_config = os.path.normpath(model_folder + "/test/pose_cfg.yaml")
+    os.path.normpath(model_folder + "/test/pose_cfg.yaml")
     path_train_config = os.path.normpath(model_folder + "/train/pose_cfg.yaml")
 
     try:
@@ -124,7 +123,7 @@ def load_model(cfg, shuffle=1, trainingsetindex=0, TFGPUinference=True, modelpre
         # dlc_cfg_train = load_config(str(path_train_config))
     except FileNotFoundError:
         raise FileNotFoundError(
-            "It seems the model for shuffle %s and trainFraction %s does not exist." % (shuffle, train_fraction)
+            f"It seems the model for shuffle {shuffle} and trainFraction {train_fraction} does not exist."
         )
 
     Snapshots = auxiliaryfunctions.get_snapshots_from_folder(
@@ -143,7 +142,7 @@ def load_model(cfg, shuffle=1, trainingsetindex=0, TFGPUinference=True, modelpre
 
     # Check if data already was generated:
     dlc_cfg["init_weights"] = os.path.join(model_folder, "train", Snapshots[snapshotindex])
-    trainingsiterations = (dlc_cfg["init_weights"].split(os.sep)[-1]).split("-")[-1]
+    (dlc_cfg["init_weights"].split(os.sep)[-1]).split("-")[-1]
     dlc_cfg["num_outputs"] = cfg.get("num_outputs", dlc_cfg.get("num_outputs", 1))
     dlc_cfg["batch_size"] = None
 
@@ -268,7 +267,7 @@ def export_model(
     try:
         cfg = auxiliaryfunctions.read_config(cfg_path)
     except FileNotFoundError:
-        FileNotFoundError("The config.yaml file at %s does not exist." % cfg_path)
+        FileNotFoundError(f"The config.yaml file at {cfg_path} does not exist.")
 
     cfg["project_path"] = os.path.dirname(os.path.realpath(cfg_path))
     cfg["iteration"] = iteration if iteration is not None else cfg["iteration"]
@@ -279,7 +278,7 @@ def export_model(
 
     sess, input, output, dlc_cfg = load_model(cfg, shuffle, trainingsetindex, TFGPUinference, modelprefix)
     ckpt = dlc_cfg["init_weights"]
-    model_dir = os.path.dirname(ckpt)
+    os.path.dirname(ckpt)
 
     ### set up export directory
 
@@ -297,7 +296,7 @@ def export_model(
 
     if os.path.isdir(full_export_dir):
         if not overwrite:
-            raise FileExistsError("Export directory %s already exists. Terminating export..." % full_export_dir)
+            raise FileExistsError(f"Export directory {full_export_dir} already exists. Terminating export...")
     else:
         os.mkdir(full_export_dir)
 
@@ -323,7 +322,7 @@ def export_model(
 
     ckpt_files = glob.glob(ckpt + "*")
     ckpt_dest = [os.path.normpath(full_export_dir + "/" + os.path.basename(ckf)) for ckf in ckpt_files]
-    for ckf, ckd in zip(ckpt_files, ckpt_dest):
+    for ckf, ckd in zip(ckpt_files, ckpt_dest, strict=False):
         shutil.copy(ckf, ckd)
 
     ### create pbtxt and pb files for checkpoint in export directory

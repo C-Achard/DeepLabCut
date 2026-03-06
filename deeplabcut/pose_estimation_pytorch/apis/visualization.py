@@ -146,7 +146,7 @@ def create_labeled_images(
         if "bboxes" in image_predictions and "bbox_scores" in image_predictions:
             bboxes = image_predictions["bboxes"]
             bbox_scores = image_predictions["bbox_scores"]
-            for idx, (bbox, score) in enumerate(zip(bboxes, bbox_scores)):
+            for idx, (bbox, score) in enumerate(zip(bboxes, bbox_scores, strict=False)):
                 if score <= bboxes_pcutoff:
                     continue
 
@@ -363,7 +363,7 @@ def extract_maps(
 
                 # key can be just image_idx, or (image_idx, bbox_idx) for TD models
                 keys, images, outputs = _collect_model_outputs(loader.pose_task, result, image_idx)
-                for key, image, output in zip(keys, images, outputs):
+                for key, image, output in zip(keys, images, outputs, strict=False):
                     parsed = _parse_model_outputs(
                         image,
                         output,
@@ -462,7 +462,7 @@ def extract_save_all_maps(
         dest_folder = _get_maps_folder(cfg, frac, shuffle, modelprefix, dest_folder)
         dest_folder.mkdir(exist_ok=True)
         for snap, maps in values.items():
-            for image_idx, image_maps in tqdm(maps.items()):
+            for _image_idx, image_maps in tqdm(maps.items()):
                 (
                     image,
                     scmap,

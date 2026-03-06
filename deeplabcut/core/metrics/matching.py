@@ -66,7 +66,7 @@ class PotentialMatch:
         self.oks = oks
 
     @classmethod
-    def from_pose(cls, pose: np.ndarray) -> "PotentialMatch":
+    def from_pose(cls, pose: np.ndarray) -> PotentialMatch:
         assert len(pose.shape) == 2  # Must be pose for a single individual
         scores = pose[:, 2]
         if np.all(np.isnan(scores)):
@@ -99,7 +99,7 @@ def match_greedy_oks(
     """
     matches = [PotentialMatch.from_pose(pose=pred) for pred in predictions]
     matched_gt_indices = set()
-    for idx, pred in enumerate(predictions):
+    for idx, _pred in enumerate(predictions):
         oks = oks_matrix[idx]
         if np.all(np.isnan(oks)):
             continue

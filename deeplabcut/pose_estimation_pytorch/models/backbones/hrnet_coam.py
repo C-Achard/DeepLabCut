@@ -14,9 +14,9 @@ import torch.nn as nn
 from deeplabcut.pose_estimation_pytorch.models.backbones.base import BACKBONES
 from deeplabcut.pose_estimation_pytorch.models.backbones.hrnet import HRNet
 from deeplabcut.pose_estimation_pytorch.models.modules import (  # ColoredKeypointEncoder,; StackedKeypointEncoder,
+    KEYPOINT_ENCODERS,
     BaseKeypointEncoder,
     CoAMBlock,
-    KEYPOINT_ENCODERS,
     SelfAttentionModule_CoAM,
 )
 
@@ -186,6 +186,6 @@ class HRNetCoAM(HRNet):
 
         if self.model.incre_modules is not None:
             raise NotImplementedError("Incremental HRNet modules not supported for HRNetCoAM")
-            x = [incre(f) for f, incre in zip(x, self.model.incre_modules)]
+            x = [incre(f) for f, incre in zip(x, self.model.incre_modules, strict=False)]
 
         return self.prepare_output(y)

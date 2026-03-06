@@ -161,7 +161,7 @@ jobs:
               Hi! It looks like some files in this PR aren’t formatted or linted according to the repo rules.
 
               **Quick fix (local)**
-              1. Install once: \`(uv) pip install pre-commit\`  (or \`pip install pre-commit\`)
+              1. Install once: \`(uv) pip install pre-commit\`
               2. Enable in this repo: \`pre-commit install\`
               3. Fix the files you changed: \`pre-commit run --files <file1> <file2> ...\`
               4. Commit the changes and push again.

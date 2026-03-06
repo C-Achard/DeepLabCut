@@ -91,7 +91,7 @@ def compute_triangulation_calibration_images(
     triangulate = np.asanyarray(triangulate)
 
     # Plotting
-    if plot == True:
+    if plot:
         col = colormap(np.linspace(0, 1, triangulate.shape[0]))
         fig = plt.figure()
         ax = fig.add_subplot(111, projection="3d")
@@ -134,7 +134,7 @@ def get_camerawise_videos(path, cam_names, videotype):
         file_to_exclude = str("labeled" + videotype)
     else:
         file_to_exclude = str("labeled." + videotype)
-    videos = [v for v in videos if os.path.isfile(v) and not (file_to_exclude in v)]
+    videos = [v for v in videos if os.path.isfile(v) and file_to_exclude not in v]
     video_list = []
     cam = cam_names[0]  # camera1
     vid.append(
@@ -314,7 +314,7 @@ def _associate_paired_view_tracks(tracklets1, tracklets2, F):
             costs[i, j] = cost
 
     match_inds = linear_sum_assignment(np.abs(costs))
-    voting = dict(zip(*match_inds))
+    voting = dict(zip(*match_inds, strict=False))
 
     return costs, voting
 

@@ -9,7 +9,9 @@
 # Licensed under GNU Lesser General Public License v3.0
 #
 from pathlib import Path
+
 import pytest
+
 from deeplabcut.utils import auxiliaryfunctions
 from deeplabcut.utils.auxfun_videos import SUPPORTED_VIDEOS
 
@@ -17,7 +19,7 @@ from deeplabcut.utils.auxfun_videos import SUPPORTED_VIDEOS
 def test_find_analyzed_data(tmpdir_factory):
     fake_folder = tmpdir_factory.mktemp("videos")
     SUPPORTED_VIDEOS = ["avi"]
-    n_ext = len(SUPPORTED_VIDEOS)
+    len(SUPPORTED_VIDEOS)
 
     SCORER = "DLC_dlcrnetms5_multi_mouseApr11shuffle1_5"
     WRONG_SCORER = "DLC_dlcrnetms5_multi_mouseApr11shuffle3_5"

@@ -246,7 +246,7 @@ def expanded_conv(
     ):
         prev_depth = input_tensor.get_shape().as_list()[3]
         if depthwise_location not in [None, "input", "output", "expansion"]:
-            raise TypeError("%r is unknown value for depthwise_location" % depthwise_location)
+            raise TypeError(f"{depthwise_location!r} is unknown value for depthwise_location")
         if use_explicit_padding:
             if padding != "SAME":
                 raise TypeError('`use_explicit_padding` should only be used with "SAME" padding.')
@@ -365,7 +365,7 @@ def split_conv(input_tensor, num_outputs, num_ways, scope, divisible_by=8, **kwa
     output_splits = _split_divisible(num_outputs, num_ways, divisible_by=divisible_by)
     inputs = tf.split(input_tensor, input_splits, axis=3, name="split_" + scope)
     base = scope
-    for i, (input_tensor, out_size) in enumerate(zip(inputs, output_splits)):
+    for i, (input_tensor, out_size) in enumerate(zip(inputs, output_splits, strict=False)):
         scope = base + "_part_%d" % (i,)
         n = slim.conv2d(input_tensor, out_size, [1, 1], scope=scope, **kwargs)
         n = tf.identity(n, scope + "_output")

@@ -113,7 +113,7 @@ class DynamicCropper:
             The pose, with coordinates updated to the full image space.
         """
         if self._shape is None:
-            raise RuntimeError(f"You must call `crop` before calling `update`.")
+            raise RuntimeError("You must call `crop` before calling `update`.")
 
         # offset the pose to the original image space
         offset_x, offset_y = 0, 0
@@ -338,7 +338,7 @@ class TopDownDynamicCropper(DynamicCropper):
             The pose, with coordinates updated to the full image space.
         """
         if self._shape is None:
-            raise RuntimeError(f"You must call `crop` before calling `update`.")
+            raise RuntimeError("You must call `crop` before calling `update`.")
 
         # check whether this was a patched crop
         batch_size = pose.shape[0]
@@ -525,7 +525,7 @@ class TopDownDynamicCropper(DynamicCropper):
         segment_size = (padded_size // n) + (padded_size % n > 0)
         segments = []
         end = overlap
-        for i in range(n):
+        for _i in range(n):
             start = end - overlap
             end = start + segment_size
             if end > size:

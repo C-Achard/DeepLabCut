@@ -12,10 +12,10 @@
 
 from __future__ import annotations
 
+import logging
 from abc import ABC, abstractmethod
 from enum import Enum
 from typing import Any
-import logging
 
 import numpy as np
 
@@ -392,7 +392,7 @@ class RescaleAndOffset(Postprocessor):
                         rescaled = outputs
                     else:
                         rescaled_individuals = []
-                        for output, scale, offset in zip(outputs, scales, offsets):
+                        for output, scale, offset in zip(outputs, scales, offsets, strict=False):
                             output_rescaled = output.copy()
                             output_rescaled[:, :2] = output[:, :2] * scale + offset
                             rescaled_individuals.append(output_rescaled)
@@ -515,7 +515,7 @@ class PredictKeypointIdentities(Postprocessor):
             ys = np.clip(heatmap_indices[:, 1], 0, h - 1)
 
             # get the score from each identity heatmap at each predicted keypoint
-            for kpt_idx, (x, y) in enumerate(zip(xs, ys)):
+            for kpt_idx, (x, y) in enumerate(zip(xs, ys, strict=False)):
                 id_score_matrix[pred_idx, kpt_idx] = identity_heatmap[y, x, :]
 
         predictions[self.identity_key] = id_score_matrix

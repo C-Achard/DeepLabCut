@@ -24,8 +24,7 @@ into this evaluation framework, please feel free to extend the base classes
 import abc
 import dataclasses
 import warnings
-from typing import Iterable
-from typing import Tuple
+from collections.abc import Iterable
 
 import pandas as pd
 
@@ -121,7 +120,7 @@ class Benchmark(abc.ABC):
             warnings.warn(
                 f"Missing {len(missing_images)} test images in the predictions for "
                 f"{name}: {list(missing_images)} Metrics will be computed as if no "
-                "individuals were detected in those images."
+                "individuals were detected in those images.", stacklevel=2
             )
 
         return {img: predictions.get(img, tuple()) for img in test_images}
@@ -150,12 +149,12 @@ class Result:
     _primary_key = ("benchmark_name", "method_name", "benchmark_version")
 
     @property
-    def primary_key(self) -> Tuple[str]:
+    def primary_key(self) -> tuple[str]:
         """The primary key to uniquely identify this result."""
         return tuple(getattr(self, k) for k in self._primary_key)
 
     @property
-    def primary_key_names(self) -> Tuple[str]:
+    def primary_key_names(self) -> tuple[str]:
         """Names of the primary keys"""
         return tuple(self._export_mapping.get(k) for k in self._primary_key)
 

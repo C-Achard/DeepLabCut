@@ -8,8 +8,8 @@ Licensed under GNU Lesser General Public License v3.0
 """
 
 from fmpose3d import (
-    FMPose3DInference,
     FMPose3DConfig,
+    FMPose3DInference,
     SupportedModel,
 )
 
@@ -18,7 +18,7 @@ def get_fmpose3d_inference_api(
     model_type: SupportedModel = "fmpose3d_humans",
     snapshot_path: str | None = None,
     device: str | None = None,
-    config_kwargs: dict = {},
+    config_kwargs: dict = None,
 ) -> FMPose3DInference:
     """
     Get a FMPose3DInference API for a given model type and snapshot path.
@@ -47,6 +47,8 @@ def get_fmpose3d_inference_api(
     predictions_3d = fmpose.pose_3d(keypoints_2d=keypoints_2d)
     ```
     """
+    if config_kwargs is None:
+        config_kwargs = {}
     model_config = FMPose3DConfig(model_type=model_type, **config_kwargs)
     fmpose3d_api = FMPose3DInference(model_config, model_weights_path=snapshot_path, device=device)
     return fmpose3d_api

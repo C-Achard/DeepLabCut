@@ -190,7 +190,7 @@ class BasePoseDataset:
             print("len(images-annotatinos)", len(image_ids - annotation_image_ids))
             print("annotations-images", annotation_image_ids - image_ids)
             print("len(annotations-images)", len(annotation_image_ids - image_ids))
-            warnings.warn("annotation and image ids do not match")
+            warnings.warn("annotation and image ids do not match", stacklevel=2)
 
     def get_keypoints(self):
         # TODO make sure it's always one element in a list

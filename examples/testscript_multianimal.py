@@ -13,10 +13,9 @@ import pickle
 import random
 from pathlib import Path
 
+import matplotlib
 import numpy as np
 import pandas as pd
-
-import matplotlib
 
 matplotlib.use("Agg")  # Non-interactive backend, for CI/CD on Windows
 
@@ -24,7 +23,6 @@ import deeplabcut
 from deeplabcut.core.engine import Engine
 from deeplabcut.utils import auxfun_multianimal, auxiliaryfunctions
 from deeplabcut.utils.auxfun_videos import VideoReader
-
 
 MODELS = ["dlcrnet_ms5", "dlcr101_ms5", "efficientnet-b0"]
 
@@ -84,7 +82,7 @@ if __name__ == "__main__":
         bodyparts_multi,
     ) = auxfun_multianimal.extractindividualsandbodyparts(cfg)
     animals_id = [i for i in range(n_animals) for _ in bodyparts_multi] + [n_animals] * len(bodyparts_single)
-    map_ = dict(zip(range(len(animals)), animals))
+    map_ = dict(zip(range(len(animals)), animals, strict=False))
     individuals = [map_[ind] for ind in animals_id for _ in range(2)]
     scorer = [SCORER] * len(individuals)
     coords = ["x", "y"] * len(animals_id)

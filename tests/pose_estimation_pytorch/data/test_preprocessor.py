@@ -13,13 +13,12 @@
 import albumentations as A
 import numpy as np
 import pytest
-from albumentations import BaseCompose
 
-from deeplabcut.pose_estimation_pytorch.data.transforms import build_resize_transforms
 from deeplabcut.pose_estimation_pytorch.data.preprocessor import (
     AugmentImage,
     build_conditional_top_down_preprocessor,
 )
+from deeplabcut.pose_estimation_pytorch.data.transforms import build_resize_transforms
 
 
 @pytest.mark.parametrize(
@@ -154,6 +153,6 @@ def deep_equal(a, b):
     elif isinstance(a, list) and isinstance(b, list):
         if len(a) != len(b):
             return False
-        return all(deep_equal(x, y) for x, y in zip(a, b))
+        return all(deep_equal(x, y) for x, y in zip(a, b, strict=False))
     else:
         return a == b

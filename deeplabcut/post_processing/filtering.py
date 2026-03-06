@@ -18,7 +18,7 @@ from scipy import signal
 from scipy.interpolate import CubicSpline
 
 from deeplabcut.refine_training_dataset.outlier_frames import FitSARIMAXModel
-from deeplabcut.utils import auxiliaryfunctions, auxfun_multianimal
+from deeplabcut.utils import auxfun_multianimal, auxiliaryfunctions
 
 
 def columnwise_spline_interp(data, max_gap=0):
@@ -54,7 +54,7 @@ def columnwise_spline_interp(data, max_gap=0):
                 count = np.diff(inds)
                 inds = inds[:-1]
                 to_fill = np.ones_like(mask)
-                for ind, n, is_nan in zip(inds, count, ~mask[inds]):
+                for ind, n, is_nan in zip(inds, count, ~mask[inds], strict=False):
                     if is_nan and n > max_gap:
                         to_fill[ind : ind + n] = False
                 y[~to_fill] = np.nan
@@ -227,7 +227,7 @@ def filterpredictions(
         if destfolder is None:
             destfolder = str(Path(video).parents[0])
 
-        print("Filtering with %s model %s" % (filtertype, video))
+        print(f"Filtering with {filtertype} model {video}")
         vname = Path(video).stem
 
         try:
