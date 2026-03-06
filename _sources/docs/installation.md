@@ -19,7 +19,6 @@ need your GPU drivers installed.
 ```bash
 conda create -n DEEPLABCUT python=3.12
 conda activate DEEPLABCUT
-conda install -c conda-forge pytables==3.8.0
 
 # install PyTorch with your desired CUDA version (or for CPU only) - check [their
 ](https://pytorch.org/get-started/locally/) website:
@@ -36,10 +35,6 @@ pip install --pre deeplabcut[gui]
 # should print `True`
 python -c "import torch; print(torch.cuda.is_available())"
 ```
-
-- Why do we install [pytables](https://www.pytables.org/usersguide/installation.html) with
-`conda` and not `pip`? Because it requires some libraries that not all users will have
-installed, and conda will ensure that they are installed as well.
 
 - If you're familiar with the command line and want TensorFlow support, look [below](
 deeplabcut-with-tf-install) for a fresh installation that has worked for us (on Linux)
@@ -299,8 +294,6 @@ Here are some additional resources users have found helpful (posted without endo
 - http://blog.nitishmutha.com/tensorflow/2017/01/22/TensorFlow-with-gpu-for-windows.html
 
 - https://developer.nvidia.com/cuda-toolkit-archive
-
-- http://www.python36.com/install-tensorflow-gpu-windows/
 
 
 FFMPEG:
