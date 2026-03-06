@@ -1,0 +1,60 @@
+name: app-token-demo
+on:
+  workflow_dispatch:
+
+jobs:
+  get-token-and-use-it:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate installation token (GitHub App)
+        id: app_token
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const jwt = require('jsonwebtoken');
+
+            // 1) Create a short-lived JWT signed with your App's private key
+            const now = Math.floor(Date.now()/1000);
+            const payload = {
+              iat: now - 60,        // issued 1 min ago to allow clock skew
+              exp: now + 9 * 60,    // expires in ~9 minutes (must be < 10)
+              iss: process.env.BOT_APP_ID  // the GitHub App ID
+            };
+            const token = jwt.sign(payload, process.env.BOT_APP_PRIVATE_KEY, { algorithm: 'RS256' });
+
+            // 2) Exchange JWT for an installation access token
+            const installation_id = process.env.BOT_APP_INSTALLATION_ID;
+            const { data } = await github.request(
+              'POST /app/installations/{installation_id}/access_tokens',
+              {
+                installation_id,
+                headers: { authorization: `Bearer ${token}` }
+              }
+            );
+
+            core.setOutput('token', data.token)
+        env:
+          BOT_APP_ID: ${{ secrets.BOT_APP_ID }}
+          BOT_APP_INSTALLATION_ID: ${{ secrets.BOT_APP_INSTALLATION_ID }}
+          BOT_APP_PRIVATE_KEY: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+
+      - name: Use the token
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ steps.app_token.outputs.token }}
+          script: |
+            const marker = '<!-- precommit-bot-comment -->';
+            const {owner, repo} = context.repo;
+            const pr = context.payload.pull_request.number;
+            const body = `${marker}
+            Hello from a **GitHub App** token 👋
+            - App-scoped, granular permissions
+            - Custom avatar + name from your App branding`;
+            const { data: comments } = await github.rest.issues.listComments({ owner, repo, issue_number: pr, per_page: 100 });
+            const existing = comments.find(c => c.body?.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number: pr, body });
+            }
