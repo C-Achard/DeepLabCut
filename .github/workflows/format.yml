@@ -96,7 +96,8 @@ jobs:
           env:
             BOT_APP_ID:          ${{ secrets.BOT_APP_ID }}
             BOT_APP_PRIVATE_KEY: ${{ secrets.BOT_APP_PRIVATE_KEY }}
-        - name: Generate installation token (GitHub App)
+
+        - name: Exchange JWT → installation access token
           id: app_token
           uses: actions/github-script@v7
           with:
@@ -104,26 +105,27 @@ jobs:
               const jwt = require('jsonwebtoken');
               const { request } = require('@octokit/request');
 
-              // 1) Build JWT per GitHub docs: RS256, exp <= 10 min, iss = App ID or Client ID
+              // 1) Build a valid JWT (iss MUST be set)
               const now = Math.floor(Date.now()/1000);
               const payload = { iat: now - 60, exp: now + 9*60, iss: process.env.BOT_APP_ID };
               const appJwt = jwt.sign(payload, process.env.BOT_APP_PRIVATE_KEY, { algorithm: 'RS256' });
 
-              // (optional) quick sanity test: /app endpoint accepts a JWT bearer
+              // (optional) sanity check
               const me = await request('GET /app', {
-                headers: { authorization: `Bearer ${appJwt}` }
+                headers: { authorization: `Bearer ${appJwt}` }   // must be Bearer <JWT>
               });
               core.info(`App ok: ${me.data.slug}`);
 
-              // 2) Exchange JWT -> installation access token
+              // 2) Exchange for an installation access token
               const { data } = await request('POST /app/installations/{installation_id}/access_tokens', {
-                installation_id: process.env.BOT_APP_INSTALLATION_ID,
-                headers: { authorization: `Bearer ${appJwt}` }   // ← critical
+                installation_id: process.env.BOT_APP_INSTALLATION_ID,          // numeric
+                headers: { authorization: `Bearer ${appJwt}` }                 // must be Bearer <JWT>
               });
               core.setOutput('token', data.token);
           env:
-            BOT_APP_INSTALLATION_ID:  ${{ secrets.BOT_APP_INSTALLATION_ID }}  # numeric from the settings URL
-            BOT_APP_PRIVATE_KEY:      ${{ secrets.BOT_APP_PRIVATE_KEY }}      # full PEM, multiline
+            BOT_APP_ID:               ${{ secrets.BOT_APP_ID }}               # ← add this back
+            BOT_APP_INSTALLATION_ID:  ${{ secrets.BOT_APP_INSTALLATION_ID }}
+            BOT_APP_PRIVATE_KEY:      ${{ secrets.BOT_APP_PRIVATE_KEY }}     # full PEM, multiline
 
         - name: Comment on PR if pre-commit failed (sticky)
           if: ${{ steps.pc.outputs.exit_code != '0' }}
