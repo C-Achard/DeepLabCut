@@ -67,7 +67,35 @@ jobs:
             npm --version
             npm init -y
             npm i jsonwebtoken @octokit/request
+        - name: Diagnose app JWT & repo installation (safe)
+          uses: actions/github-script@v7
+          with:
+            script: |
+              const jwt = require('jsonwebtoken');
+              const { request } = require('@octokit/request');
 
+              // Build short-lived JWT (RS256, exp < 10 min)
+              const now = Math.floor(Date.now()/1000);
+              const payload = { iat: now - 60, exp: now + 9*60, iss: process.env.BOT_APP_ID };
+              const appJwt = jwt.sign(payload, process.env.BOT_APP_PRIVATE_KEY, { algorithm: 'RS256' });
+
+              // Sanity check: confirm which app this JWT represents
+              const app = await request('GET /app', {
+                headers: { authorization: `Bearer ${appJwt}` }
+              });
+              core.info(`App slug: ${app.data.slug}`);
+
+              // Find *this repo's* installation only
+              const { owner, repo } = context.repo;
+              const inst = await request('GET /repos/{owner}/{repo}/installation', {
+                owner, repo,
+                headers: { authorization: `Bearer ${appJwt}` }
+              });
+
+              core.info(`installation_id=${inst.data.id} (scoped to ${owner}/${repo})`);
+          env:
+            BOT_APP_ID:          ${{ secrets.BOT_APP_ID }}
+            BOT_APP_PRIVATE_KEY: ${{ secrets.BOT_APP_PRIVATE_KEY }}
         - name: Generate installation token (GitHub App)
           id: app_token
           uses: actions/github-script@v7
@@ -94,7 +122,6 @@ jobs:
               });
               core.setOutput('token', data.token);
           env:
-            BOT_APP_ID:               ${{ secrets.BOT_APP_ID }}               # App ID or Client ID (both allowed)
             BOT_APP_INSTALLATION_ID:  ${{ secrets.BOT_APP_INSTALLATION_ID }}  # numeric from the settings URL
             BOT_APP_PRIVATE_KEY:      ${{ secrets.BOT_APP_PRIVATE_KEY }}      # full PEM, multiline
 
