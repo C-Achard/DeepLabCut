@@ -9,53 +9,166 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       changed: ${{ steps.changed_files.outputs.changed }}
-
     steps:
-      - name: Checkout full history
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Detect changed files
+      - name: Collect changed files (PR API)
         id: changed_files
-        run: |
-          git fetch origin ${{ github.base_ref }}
-          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
-
-          {
-            echo "changed<<EOF"
-            echo "$CHANGED_FILES"
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
-
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const pull_number = context.payload.pull_request.number;
+            const files = await github.paginate(
+              github.rest.pulls.listFiles,
+              { owner, repo, pull_number, per_page: 100 }
+            );
+            const changed = files.map(f => f.filename).join('\n');
+            core.setOutput('changed', changed);
       - name: Show changed files
         run: |
           echo "Changed files:"
           echo "${{ steps.changed_files.outputs.changed }}"
 
   precommit:
-    needs: detect_changes
-    runs-on: ubuntu-latest
-    if: ${{ needs.detect_changes.outputs.changed != '' }}
+      needs: detect_changes
+      runs-on: ubuntu-latest
+      if: ${{ needs.detect_changes.outputs.changed != '' }}
+      steps:
+        - name: Checkout PR branch
+          uses: actions/checkout@v6
+          with:
+            ref: ${{ github.head_ref }}
+            fetch-depth: 0
 
-    steps:
-      - name: Checkout PR branch
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          ref: ${{ github.head_ref }}
+        - name: Set up Python
+          uses: actions/setup-python@v6
+          with:
+            python-version: "3.12"
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
+        - name: Install pre-commit
+          run: pip install pre-commit
 
-      - name: Install pre-commit
-        run: pip install pre-commit
+        - name: Run pre-commit (changed files)
+          id: pc
+          shell: bash
+          env:
+            CHANGED_FILES: ${{ needs.detect_changes.outputs.changed }}
+          run: |
+            # Map PR files into an array for pre-commit
+            mapfile -t files <<< "$CHANGED_FILES"
+            echo "Running on ${#files[@]} changed file(s)"
+            set +e
+            pre-commit run --hook-stage manual --files "${files[@]}" --show-diff-on-failure
+            rc=$?
+            echo "exit_code=$rc" >> "$GITHUB_OUTPUT"
+            exit 0  # Don't fail yet; we want to post a comment first
 
-      - name: Run pre-commit (CI check-only stage) on changed files
-        env:
-          CHANGED_FILES: ${{ needs.detect_changes.outputs.changed }}
-        run: |
-          mapfile -t files <<< "$CHANGED_FILES"
-          pre-commit run --hook-stage manual --files "${files[@]}" --show-diff-on-failure
+        - name: Comment on PR if pre-commit failed (sticky)
+          if: ${{ steps.pc.outputs.exit_code != '0' }}
+          uses: actions/github-script@v7
+          env:
+            RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            CHANGED_FILES: ${{ needs.detect_changes.outputs.changed }}
+            WITH_QUOTE: "true"    # set to "false" to disable quotes
+          with:
+            script: |
+              const {owner, repo} = context.repo;
+              const pr = context.payload.pull_request.number;
+
+              const marker = '<!-- precommit-bot-comment -->';
+
+              // Optional quotes – static, no network
+              // The bot is a mouse, stay in character.
+              const quotes = [
+                "The cake is a lie.",
+                "If you are not using dark mode, I might get scared.",
+                "I can only see two colors :(",
+                "Clean code makes me happy!",
+                "I was born in 2026. Is that old for a mouse?",
+                "Cheese is overrated, I prefer chocolate.",
+                "pre-commits dream of electric cheese.",
+                "=^.^=",
+                "А ну, чики-брики и в дамки",
+                "Please do not touch the grass, it is mine.",
+                "Sunlight on my whiskers, serotonin in my brain.",
+                "bash cannot parse what bash did not create.",
+                "I am not a bug, I am an undocumented feature. Also a mouse.",
+                "I may bite but it is for your own good. Run pre-commit!",
+                "What is that in your right hand? Oh never mind.",
+                "*squeaks in binary*",
+                "Unformatted code cannot make me see red. I'm missing that photoreceptor.",
+                "Jessy was here. He's probably laughing if he's seeing this. o7",
+                "We value animal well-being. No mice were harmed in the making of this PR comment."
+              ];
+              const withQuote = process.env.WITH_QUOTE === 'true';
+              const quote = withQuote
+                ? `\n> ${quotes[Math.floor(Math.random()*quotes.length)]}\n`
+                : '';
+
+              const changedList = (process.env.CHANGED_FILES || '').split('\n')
+                .filter(Boolean)
+                .map(f => `- \`${f}\``)
+                .join('\n') || '_detected but not listed_';
+
+              const runUrl = process.env.RUN_URL;
+              const issueTitle = encodeURIComponent("pre-commit: Need help resolving formatting/lint failures");
+              const issueBody = encodeURIComponent(
+                `I ran \`pre-commit\` locally but CI still fails.\n\n` +
+                `- PR: #${pr}\n- Failed run: ${runUrl}\n\n` +
+                `What I tried:\n1. \`pipx install pre-commit\`\n2. \`pre-commit install\`\n3. \`pre-commit run -a\`\n4. Commit and push\n`
+              );
+              const newIssueUrl = `${context.payload.repository.html_url}/issues/new?title=${issueTitle}&labels=ci,pre-commit&body=${issueBody}`;
+
+              const body = `${marker}
+              ### ⚠️ Formatting / style checks failed on changed files
+
+              Hi! It looks like some files in this PR aren’t formatted or linted according to the repo rules.
+
+              **Quick fix (local)**
+              1. Install once: \`(uv) pip install pre-commit\`  (or \`pip install pre-commit\`)
+              2. Enable in this repo: \`pre-commit install\`
+              3. Fix the files you changed: \`pre-commit run --files <file1> <file2> ...\`
+              4. Commit the changes and push again.
+
+              **Changed files (CI checked)**
+              ${changedList}
+
+              **If you’re still stuck**, please [open a help issue](${newIssueUrl}) and include the [failing run](${runUrl}).
+
+              <sub><em>This is a repository bot. It is not an AI and cannot provide companionship.</em></sub>
+              <sub><em>${quote}</em></sub>`;
+
+              // Find existing comment by marker
+              const { data: comments } = await github.rest.issues.listComments({
+                owner, repo, issue_number: pr, per_page: 100
+              });
+              const existing = comments.find(c => c.body?.includes(marker));
+
+              if (existing) {
+                await github.rest.issues.updateComment({
+                  owner, repo, comment_id: existing.id, body
+                });
+              } else {
+                await github.rest.issues.createComment({
+                  owner, repo, issue_number: pr, body
+                });
+              }
+        - name: Remove sticky comment if pre-commit now passes
+          if: ${{ steps.pc.outputs.exit_code == '0' }}
+          uses: actions/github-script@v7
+          with:
+            script: |
+              const {owner, repo} = context.repo;
+              const pr = context.payload.pull_request.number;
+              const marker = '<!-- precommit-bot-comment -->';
+              const { data: comments } = await github.rest.issues.listComments({
+                owner, repo, issue_number: pr, per_page: 100
+              });
+              const existing = comments.find(c => c.body?.includes(marker));
+              if (existing) {
+                await github.rest.issues.deleteComment({
+                  owner, repo, comment_id: existing.id
+                });
+              }
+        - name: Fail job if pre-commit failed
+          if: ${{ steps.pc.outputs.exit_code != '0' }}
+          run: exit 1
