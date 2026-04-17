@@ -383,6 +383,9 @@ class DLCLoader(Loader):
         Returns:
             the coco format data
         """
+        if not isinstance(bbox_margin, int) or bbox_margin < 0:
+            raise ValueError(f"bbox_margin must be a non-negative integer, got {bbox_margin}")
+
         with_individuals = "individuals" in df.columns.names
         if not with_individuals and (len(parameters.individuals) > 1 or len(parameters.unique_bpts) > 0):
             raise ValueError(
