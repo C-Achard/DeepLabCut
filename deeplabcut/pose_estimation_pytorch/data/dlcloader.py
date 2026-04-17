@@ -371,6 +371,7 @@ class DLCLoader(Loader):
         project_root: str | Path,
         df: pd.DataFrame,
         parameters: PoseDatasetParameters,
+        bbox_margin: int = 20,
     ) -> dict:
         """Formerly Shaokai's function.
 
@@ -470,12 +471,12 @@ class DLCLoader(Loader):
                     )
 
         coco_dict = {"annotations": anns, "categories": categories, "images": images}
-        coco_dict = DLCLoader._add_bbox_annotations(coco_dict)
+        coco_dict = DLCLoader._add_bbox_annotations(coco_dict, margin=bbox_margin)
         coco_dict = DLCLoader._remove_nans(coco_dict)
         return coco_dict
 
     @staticmethod
-    def _add_bbox_annotations(coco_dict: dict) -> dict:
+    def _add_bbox_annotations(coco_dict: dict, margin: int = 20) -> dict:
         for annotation in coco_dict.get("annotations", []):
             if "bbox" not in annotation:
                 image = [img for img in coco_dict.get("images") if img.get("id") == annotation.get("image_id")][0]
@@ -483,7 +484,7 @@ class DLCLoader(Loader):
                     keypoints=np.array(annotation["keypoints"]),  # (..., num_keypoints, xy)
                     image_h=image.get("height"),
                     image_w=image.get("width"),
-                    margin=20,
+                    margin=margin,
                 )
                 annotation["bbox"] = list(bbox)
         return coco_dict
