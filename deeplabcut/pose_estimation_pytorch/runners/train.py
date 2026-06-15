@@ -173,11 +173,14 @@ class TrainingRunner(Runner, Generic[ModelType], metaclass=ABCMeta):
         raise NotImplementedError
 
     def _gpu_usage_str(self) -> str:
-        if not torch.cuda.is_available():
-            return ""
-        used = torch.cuda.memory_reserved() / 1024**2
-        total = torch.cuda.get_device_properties(0).total_memory / 1024**2
-        return f", GPU: {used:.1f}/{total:.1f} MiB"
+        # if not torch.cuda.is_available():
+        # This is not exactly a safe check...
+        # return ""
+        if "cuda" in str(self.device).lower():
+            used = torch.cuda.memory_reserved() / 1024**2
+            total = torch.cuda.get_device_properties(0).total_memory / 1024**2
+            return f", GPU: {used:.1f}/{total:.1f} MiB"
+        return ""
 
     def fit(
         self,
@@ -737,15 +740,12 @@ def build_optimizer(
     model: nn.Module,
     optimizer_config: dict,
 ) -> torch.optim.Optimizer:
-    """Builds an optimizer from a configuration.
-
-    Args:
-        model: The model to optimize.
-        optimizer_config: The configuration for the optimizer.
-
-    Returns:
-        The optimizer for the model built according to the given configuration.
-    """
+    """Builds an optimizer from a configuration."""
     optim_cls = getattr(torch.optim, optimizer_config["type"])
-    optimizer = optim_cls(params=model.parameters(), **optimizer_config["params"])
+
+    params = [p for p in model.parameters() if p.requires_grad]
+    if len(params) == 0:
+        raise ValueError("Cannot build optimizer: model has no trainable parameters.")
+
+    optimizer = optim_cls(params=params, **optimizer_config["params"])
     return optimizer
