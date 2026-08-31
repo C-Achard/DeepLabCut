@@ -35,7 +35,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d0fcb2aa" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=9e359f71" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -61,7 +61,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'examples/COLAB/COLAB_HumanPose_with_RTMPose';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="DeepLabCut Model Zoo: SuperAnimal models" href="COLAB_YOURDATA_SuperAnimal.html" />
+    <link rel="next" title="Additional features notebooks" href="../../docs/notebooks/extra.html" />
     <link rel="prev" title="DeepLabCut MultiMouse Data Demo" href="COLAB_3miceDemo.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -180,103 +180,82 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../docs/UseOverviewGuide.html">🥳 Get started with DeepLabCut: our key recommendations</a></li>
-
-
-<li class="toctree-l1"><a class="reference internal" href="../../docs/course.html">DeepLabCut Self-paced Course</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Installation</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../docs/installation.html">How To Install DeepLabCut</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/recipes/installTips.html">Installation Tips</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/docker.html">DeepLabCut Docker containers</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Main User Guides</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../docs/standardDeepLabCut_UserGuide.html">DeepLabCut User Guide (for single animal projects)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/maDLC_UserGuide.html">DeepLabCut for Multi-Animal Projects</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="../../docs/Overviewof3D.html">3D DeepLabCut</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/HelperFunctions.html">Helper &amp; Advanced Optional Function Documentation</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graphical User Interfaces (GUIs)</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../docs/gui/PROJECT_GUI.html">Interactive Project Manager GUI</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../docs/gui/napari_GUI.html">napari GUI</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../docs/gui/napari/basic_usage.html">napari-DLC - Basic usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../docs/gui/napari/advanced_usage.html">napari-DLC - Advanced features</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../docs/installation.html">Installing DeepLabCut</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/docker.html">DeepLabCut in Docker</a></li>
 </ul>
 </details></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">DLC3 PyTorch Specific Docs</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Main workflows overview</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../docs/pytorch/user_guide.html">DeepLabCut 3.0 - PyTorch User Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/pytorch/pytorch_config.html">The PyTorch Configuration file</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/pytorch/architectures.html">DeepLabCut 3.0 - PyTorch Model Architectures</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../docs/main-workflows/user-guide.html">DeepLabCut User Guide</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/quick-start/single_animal_quick_guide.html">Single-animal at a glance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/quick-start/tutorial_maDLC.html">Multi-animal at a glance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/main-workflows/multi-animal-tracking.html">Multi-animal tracking</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Quick Start Tutorials</span></p>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/Overviewof3D.html">3D DeepLabCut</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GUI workflow</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../docs/quick-start/single_animal_quick_guide.html">QUICK GUIDE to single Animal Training:</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/quick-start/tutorial_maDLC.html">Multi-animal pose estimation with DeepLabCut: A 5-minute tutorial</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../docs/gui/PROJECT_GUI.html">Project Manager GUI</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/beginner-guides/beginners-guide.html">Setting up a new project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/beginner-guides/manage-project.html">Editing and working with the configuration file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/beginner-guides/labeling.html">Labeling GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/beginner-guides/Training-Evaluation.html">Neural network training and evaluation in the GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/beginner-guides/video-analysis.html">Video analysis in the GUI</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">🚀 Beginner's Guide to DeepLabCut</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../docs/beginner-guides/beginners-guide.html">Using DeepLabCut</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/beginner-guides/manage-project.html">Setting up what keypoints to track</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/beginner-guides/labeling.html">Labeling GUI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/beginner-guides/Training-Evaluation.html">Neural Network training and evaluation in the GUI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/beginner-guides/video-analysis.html">Video Analysis with DeepLabCut</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../docs/gui/napari_GUI.html">napari GUI</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/gui/napari/basic_usage.html">Basic usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/gui/napari/advanced_usage.html">Advanced features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/gui/napari/tracking/basic_usage.html">Automated annotation with point tracking</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">🚀 Main Demo Notebooks</span></p>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Notebooks &amp; Demos</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="COLAB_DEMO_SuperAnimal.html">DeepLabCut SuperAnimal models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="COLAB_DEMO_mouse_openfield.html">DeepLabCut on Single Mouse Data Demo</a></li>
-<li class="toctree-l1"><a class="reference internal" href="COLAB_3miceDemo.html">DeepLabCut MultiMouse Data Demo</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">DeepLabCut RTMPose human pose estimation demo</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../docs/notebooks/your_data.html">Notebooks for your data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="COLAB_YOURDATA_SuperAnimal.html">DeepLabCut Model Zoo: SuperAnimal models</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="COLAB_YOURDATA_TrainNetwork_VideoAnalysis.html">DeepLabCut for your standard (single animal) projects!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="COLAB_YOURDATA_maDLC_TrainNetwork_VideoAnalysis.html">DeepLabCut for your multi-animal projects!</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">🚀 Notebooks For Your Data</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="COLAB_YOURDATA_SuperAnimal.html">DeepLabCut Model Zoo: SuperAnimal models</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="COLAB_YOURDATA_TrainNetwork_VideoAnalysis.html">DeepLabCut for your standard (single animal) projects!</a></li>
-<li class="toctree-l1"><a class="reference internal" href="COLAB_YOURDATA_maDLC_TrainNetwork_VideoAnalysis.html">DeepLabCut for your multi-animal projects!</a></li>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../docs/notebooks/main_demos.html">Demo notebooks</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="COLAB_DEMO_SuperAnimal.html">DeepLabCut SuperAnimal models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="COLAB_DEMO_mouse_openfield.html">DeepLabCut on Single Mouse Data Demo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="COLAB_3miceDemo.html">DeepLabCut MultiMouse Data Demo</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">DeepLabCut RTMPose human pose estimation demo</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">🚀 Special Feature Demos</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="COLAB_transformer_reID.html">Demo: How to use our Pose Transformer for unsupervised identity tracking of animals</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../docs/notebooks/extra.html">Additional features notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="COLAB_transformer_reID.html">Demo: How to use our Pose Transformer for unsupervised identity tracking of animals</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="COLAB_BUCTD_and_CTD_tracking.html">DeepLabCut - Tutorial for BUCTD models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../JUPYTER/Demo_3D_DeepLabCut.html">3D DeepLabCut Toolbox</a></li>
-<li class="toctree-l1"><a class="reference internal" href="COLAB_DLC_ModelZoo.html">DeepLabCut Model Zoo user-contributed models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="COLAB_BUCTD_and_CTD_tracking.html">DeepLabCut - Tutorial for BUCTD models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../JUPYTER/Demo_3D_DeepLabCut.html">3D DeepLabCut Toolbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="COLAB_DLC_ModelZoo.html">DeepLabCut Model Zoo user-contributed models</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">🧑‍🍳 Cookbook (detailed helper guides)</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../docs/convert_maDLC.html">How to convert a pre-2.2 project for use with DeepLabCut 2.2 or later</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/recipes/OtherData.html">How to use data labeled outside of DeepLabCut</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/recipes/io.html">Input/output manipulations with DeepLabCut</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/recipes/nn.html">Model training tips &amp; tricks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/recipes/post.html">Some data processing recipes!</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/recipes/BatchProcessing.html">Automate training and video analysis: Batch Processing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/recipes/DLCMethods.html">How to write a DLC Methods Section</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/recipes/ClusteringNapari.html">Clustering in the napari-DeepLabCut GUI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/recipes/OpenVINO.html">Intel OpenVINO backend</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/recipes/flip_and_rotate.html">Improving network performance on unbalanced data via augmentation 🦇</a></li>
-
-
-<li class="toctree-l1"><a class="reference internal" href="../../docs/recipes/pose_cfg_file_breakdown.html">The <code class="docutils literal notranslate"><span class="pre">pose_cfg.yaml</span></code> Guideline Handbook</a></li>
-
-
-
-<li class="toctree-l1"><a class="reference internal" href="../../docs/recipes/publishing_notebooks_into_the_DLC_main_cookbook.html">Publishing Notebooks into the Main DLC Cookbook</a></li>
+</details></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware Tips</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepLabCut 3.0 - PyTorch guides</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../docs/recipes/TechHardware.html">Technical (Hardware) Considerations</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../docs/pytorch/index.html">PyTorch backend guides</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/pytorch/user_guide.html">What is new in DeepLabCut 3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/pytorch/pytorch_config.html">Configuration file reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/pytorch/architectures.html">Model architectures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/pytorch/Benchmarking_shuffle_guide.html">Benchmarking user guide</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepLabCut-Live!</span></p>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced, Performance &amp; Live</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../docs/ModelZoo.html">The DeepLabCut Model Zoo!</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/recipes/UsingModelZooPupil.html">Using ModelZoo models on your own datasets</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../docs/dlc-live/deeplabcutlive.html">Running DeepLabCut models in real-time</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../docs/dlc-live/dlc-live-gui/index.html">DeepLabCut-live-GUI</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../docs/dlc-live/dlc-live-gui/quickstart/install.html">Installation</a></li>
@@ -288,6 +267,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../docs/dlc-live/dlc-live-gui/user_guide/cameras_backends/gentl_backend.html">GenTL backend</a></li>
 </ul>
 </details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/dlc-live/dlc-live-gui/user_guide/camera_config.html">Camera configuration</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../docs/dlc-live/dlc-live-gui/user_guide/misc/misc_landing.html">Additional resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../docs/dlc-live/dlc-live-gui/user_guide/misc/modelzoo_downloads.html">Pre-trained models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../docs/dlc-live/dlc-live-gui/user_guide/misc/timestamp_format.html">Video timestamp format</a></li>
@@ -295,26 +275,47 @@
 </details></li>
 </ul>
 </details></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">🦄 DeepLabCut Model Zoo</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../docs/ModelZoo.html">The DeepLabCut Model Zoo!</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/recipes/UsingModelZooPupil.html">Using ModelZoo models on your own datasets</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepLabCut Benchmarking</span></p>
-<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../docs/benchmark.html">DeepLabCut benchmark</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../docs/pytorch/Benchmarking_shuffle_guide.html">DeepLabCut Benchmarking - User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/recipes/TechHardware.html">Technical &amp; hardware considerations</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Mission &amp; Contribute</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://deeplabcut.github.io/DeepLabCut/dev/">Developer Documentation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Additional guides (Recipes)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../docs/recipes/index.html">The DeepLabCut Cookbook</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/recipes/publishing_notebooks_into_the_DLC_main_cookbook.html">Publishing Notebooks into the Main DLC Cookbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/HelperFunctions.html">Helper &amp; Advanced Optional Function Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/convert_maDLC.html">How to convert a pre-2.2 project for use with DeepLabCut 2.2 or later</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/recipes/OtherData.html">How to use data labeled outside of DeepLabCut</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/recipes/io.html">Input/output manipulations with DeepLabCut</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/recipes/nn.html">Model training tips &amp; tricks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/recipes/post.html">Some data processing recipes!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/recipes/BatchProcessing.html">Automate training and video analysis: Batch Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/recipes/DLCMethods.html">How to write a DLC Methods Section</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/recipes/ClusteringNapari.html">Clustering in the napari-DeepLabCut GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/recipes/OpenVINO.html">Intel OpenVINO backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/recipes/flip_and_rotate.html">Improving network performance on unbalanced data via augmentation 🦇</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../../docs/recipes/pose_cfg_file_breakdown.html">The <code class="docutils literal notranslate"><span class="pre">pose_cfg.yaml</span></code> Guideline Handbook</a></li>
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../docs/dlc-utils/index.html">DeepLabCut-Utils - Community contributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/dlc-utils/XROMM/usage.html">XROMM + DeepLabCut local integration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Project &amp; Community</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../docs/MISSION_AND_VALUES.html">Mission and Values of DeepLabCut</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../docs/roadmap.html">A development roadmap for DeepLabCut</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../docs/Governance.html">Governance Model of DeepLabCut</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTING.html">Contributing to DeepLabCut</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Citations for DeepLabCut</span></p>
-<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../docs/citation.html">How to Cite DeepLabCut</a></li>
 </ul>
 
@@ -612,7 +613,7 @@ DLC loaded in light mode; you cannot use any GUI (labeling, relabeling and stand
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Folder in COLAB where snapshots will be saved</span>
-<span class="n">model_files</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;hf_files&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+<span class="n">model_files</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"hf_files"</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
 <span class="n">model_files</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Download the snapshot and model configuration file</span>
@@ -621,15 +622,15 @@ DLC loaded in light mode; you cannot use any GUI (labeling, relabeling and stand
 <span class="c1">#   out dlclibrary!</span>
 <span class="n">path_model_config</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span>
     <span class="n">huggingface_hub</span><span class="o">.</span><span class="n">hf_hub_download</span><span class="p">(</span>
-        <span class="s2">&quot;DeepLabCut/HumanBody&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;rtmpose-x_simcc-body7_pytorch_config.yaml&quot;</span><span class="p">,</span>
+        <span class="s2">"DeepLabCut/HumanBody"</span><span class="p">,</span>
+        <span class="s2">"rtmpose-x_simcc-body7_pytorch_config.yaml"</span><span class="p">,</span>
         <span class="n">local_dir</span><span class="o">=</span><span class="n">model_files</span><span class="p">,</span>
     <span class="p">)</span>
 <span class="p">)</span>
 <span class="n">path_snapshot</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span>
     <span class="n">huggingface_hub</span><span class="o">.</span><span class="n">hf_hub_download</span><span class="p">(</span>
-        <span class="s2">&quot;DeepLabCut/HumanBody&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;rtmpose-x_simcc-body7.pt&quot;</span><span class="p">,</span>
+        <span class="s2">"DeepLabCut/HumanBody"</span><span class="p">,</span>
+        <span class="s2">"rtmpose-x_simcc-body7.pt"</span><span class="p">,</span>
         <span class="n">local_dir</span><span class="o">=</span><span class="n">model_files</span><span class="p">,</span>
     <span class="p">)</span>
 <span class="p">)</span>
@@ -655,30 +656,30 @@ Please note that authentication is recommended but still optional to access publ
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cmap_keypoints</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;rainbow&quot;</span><span class="p">)</span>
-<span class="n">cmap_skeleton</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;rainbow_r&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cmap_keypoints</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">"rainbow"</span><span class="p">)</span>
+<span class="n">cmap_skeleton</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">"rainbow_r"</span><span class="p">)</span>
 
 <span class="n">bodyparts2connect</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s2">&quot;right_ankle&quot;</span><span class="p">,</span> <span class="s2">&quot;right_knee&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;right_knee&quot;</span><span class="p">,</span> <span class="s2">&quot;right_hip&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;left_ankle&quot;</span><span class="p">,</span> <span class="s2">&quot;left_knee&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;left_hip&quot;</span><span class="p">,</span> <span class="s2">&quot;left_knee&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;left_hip&quot;</span><span class="p">,</span> <span class="s2">&quot;right_hip&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;right_shoulder&quot;</span><span class="p">,</span> <span class="s2">&quot;right_hip&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;left_shoulder&quot;</span><span class="p">,</span> <span class="s2">&quot;left_hip&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;left_shoulder&quot;</span><span class="p">,</span> <span class="s2">&quot;right_shoulder&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;left_shoulder&quot;</span><span class="p">,</span> <span class="s2">&quot;left_elbow&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;right_shoulder&quot;</span><span class="p">,</span> <span class="s2">&quot;right_elbow&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;left_elbow&quot;</span><span class="p">,</span> <span class="s2">&quot;left_wrist&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;right_elbow&quot;</span><span class="p">,</span> <span class="s2">&quot;right_wrist&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;right_eye&quot;</span><span class="p">,</span> <span class="s2">&quot;left_ear&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;left_eye&quot;</span><span class="p">,</span> <span class="s2">&quot;right_eye&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;left_eye&quot;</span><span class="p">,</span> <span class="s2">&quot;left_ear&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;right_eye&quot;</span><span class="p">,</span> <span class="s2">&quot;right_ear&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;left_ear&quot;</span><span class="p">,</span> <span class="s2">&quot;left_shoulder&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;right_ear&quot;</span><span class="p">,</span> <span class="s2">&quot;right_shoulder&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;left_shoulder&quot;</span><span class="p">,</span> <span class="s2">&quot;left_elbow&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;right_shoulder&quot;</span><span class="p">,</span> <span class="s2">&quot;right_elbow&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"right_ankle"</span><span class="p">,</span> <span class="s2">"right_knee"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"right_knee"</span><span class="p">,</span> <span class="s2">"right_hip"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"left_ankle"</span><span class="p">,</span> <span class="s2">"left_knee"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"left_hip"</span><span class="p">,</span> <span class="s2">"left_knee"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"left_hip"</span><span class="p">,</span> <span class="s2">"right_hip"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"right_shoulder"</span><span class="p">,</span> <span class="s2">"right_hip"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"left_shoulder"</span><span class="p">,</span> <span class="s2">"left_hip"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"left_shoulder"</span><span class="p">,</span> <span class="s2">"right_shoulder"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"left_shoulder"</span><span class="p">,</span> <span class="s2">"left_elbow"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"right_shoulder"</span><span class="p">,</span> <span class="s2">"right_elbow"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"left_elbow"</span><span class="p">,</span> <span class="s2">"left_wrist"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"right_elbow"</span><span class="p">,</span> <span class="s2">"right_wrist"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"right_eye"</span><span class="p">,</span> <span class="s2">"left_ear"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"left_eye"</span><span class="p">,</span> <span class="s2">"right_eye"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"left_eye"</span><span class="p">,</span> <span class="s2">"left_ear"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"right_eye"</span><span class="p">,</span> <span class="s2">"right_ear"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"left_ear"</span><span class="p">,</span> <span class="s2">"left_shoulder"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"right_ear"</span><span class="p">,</span> <span class="s2">"right_shoulder"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"left_shoulder"</span><span class="p">,</span> <span class="s2">"left_elbow"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"right_shoulder"</span><span class="p">,</span> <span class="s2">"right_elbow"</span><span class="p">),</span>
 <span class="p">]</span>
 <span class="n">skeleton</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">14</span><span class="p">],</span>
@@ -716,7 +717,7 @@ Please note that authentication is recommended but still optional to access publ
 <span class="c1"># JPG or PNG is recommended:</span>
 <span class="n">uploaded</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">upload</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">uploaded</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;User uploaded file &#39;</span><span class="si">{</span><span class="n">filepath</span><span class="si">}</span><span class="s2">&#39; with length </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="si">}</span><span class="s2"> bytes&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"User uploaded file '</span><span class="si">{</span><span class="n">filepath</span><span class="si">}</span><span class="s2">' with length </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="si">}</span><span class="s2"> bytes"</span><span class="p">)</span>
 
 <span class="n">image_paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">Path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span> <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="n">uploaded</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
 
@@ -725,8 +726,8 @@ Please note that authentication is recommended but still optional to access publ
 <span class="c1"># `image_paths` yourself with right `click` &gt; `copy path` on the image:</span>
 <span class="c1">#</span>
 <span class="c1"># image_paths = [</span>
-<span class="c1">#   Path(&quot;/path/to/my/image_000.png&quot;),</span>
-<span class="c1">#   Path(&quot;/path/to/my/image_001.png&quot;),</span>
+<span class="c1">#   Path("/path/to/my/image_000.png"),</span>
+<span class="c1">#   Path("/path/to/my/image_001.png"),</span>
 <span class="c1"># ]</span>
 </pre></div>
 </div>
@@ -915,7 +916,7 @@ scope.google.colab._files = {
 };
 })(self);
 </script> </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Saving taylor_swift.jpg to taylor_swift.jpg
-User uploaded file &#39;taylor_swift.jpg&#39; with length 46915 bytes
+User uploaded file 'taylor_swift.jpg' with length 46915 bytes
 </pre></div>
 </div>
 </div>
@@ -923,7 +924,7 @@ User uploaded file &#39;taylor_swift.jpg&#39; with length 46915 bytes
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the device on which the models will run</span>
-<span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span>  <span class="c1"># e.g. cuda, cpu</span>
+<span class="n">device</span> <span class="o">=</span> <span class="s2">"cuda"</span>  <span class="c1"># e.g. cuda, cpu</span>
 
 <span class="c1"># The maximum number of detections to keep in an image</span>
 <span class="n">max_detections</span> <span class="o">=</span> <span class="mi">10</span>
@@ -946,14 +947,14 @@ User uploaded file &#39;taylor_swift.jpg&#39; with length 46915 bytes
 <span class="c1"># the images.</span>
 <span class="n">context</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running object detection&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Running object detection"</span><span class="p">)</span>
 <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
     <span class="k">for</span> <span class="n">image_path</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">image_paths</span><span class="p">):</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;RGB&quot;</span><span class="p">)</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">"RGB"</span><span class="p">)</span>
         <span class="n">batch</span> <span class="o">=</span> <span class="p">[</span><span class="n">preprocess</span><span class="p">(</span><span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)]</span>
         <span class="n">predictions</span> <span class="o">=</span> <span class="n">detector</span><span class="p">(</span><span class="n">batch</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">bboxes</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;boxes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-        <span class="n">labels</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">bboxes</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="s2">"boxes"</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="s2">"labels"</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
 
         <span class="c1"># Obtain the bounding boxes predicted for humans</span>
         <span class="n">human_bboxes</span> <span class="o">=</span> <span class="p">[</span><span class="n">bbox</span> <span class="k">for</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bboxes</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
@@ -968,7 +969,7 @@ User uploaded file &#39;taylor_swift.jpg&#39; with length 46915 bytes
         <span class="c1"># Only keep the best N detections</span>
         <span class="n">bboxes</span> <span class="o">=</span> <span class="n">bboxes</span><span class="p">[:</span><span class="n">max_detections</span><span class="p">]</span>
 
-        <span class="n">context</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;bboxes&quot;</span><span class="p">:</span> <span class="n">bboxes</span><span class="p">})</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"bboxes"</span><span class="p">:</span> <span class="n">bboxes</span><span class="p">})</span>
 
 
 <span class="c1">#############################################</span>
@@ -981,29 +982,29 @@ User uploaded file &#39;taylor_swift.jpg&#39; with length 46915 bytes
     <span class="n">max_individuals</span><span class="o">=</span><span class="n">max_detections</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running pose estimation&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Running pose estimation"</span><span class="p">)</span>
 <span class="n">predictions</span> <span class="o">=</span> <span class="n">runner</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">tqdm</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">image_paths</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)))</span>
 
 
 <span class="c1">#############################################</span>
 <span class="c1"># Create a DataFrame with the predictions, and save them to a CSV file.</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Saving the predictions to a CSV file&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Saving the predictions to a CSV file"</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">dlc_torch</span><span class="o">.</span><span class="n">build_predictions_dataframe</span><span class="p">(</span>
-    <span class="n">scorer</span><span class="o">=</span><span class="s2">&quot;rtmpose-body7&quot;</span><span class="p">,</span>
+    <span class="n">scorer</span><span class="o">=</span><span class="s2">"rtmpose-body7"</span><span class="p">,</span>
     <span class="n">predictions</span><span class="o">=</span><span class="p">{</span>
         <span class="n">img_path</span><span class="p">:</span> <span class="n">img_predictions</span> <span class="k">for</span> <span class="n">img_path</span><span class="p">,</span> <span class="n">img_predictions</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">image_paths</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="p">},</span>
     <span class="n">parameters</span><span class="o">=</span><span class="n">dlc_torch</span><span class="o">.</span><span class="n">PoseDatasetParameters</span><span class="p">(</span>
-        <span class="n">bodyparts</span><span class="o">=</span><span class="n">pose_cfg</span><span class="p">[</span><span class="s2">&quot;metadata&quot;</span><span class="p">][</span><span class="s2">&quot;bodyparts&quot;</span><span class="p">],</span>
-        <span class="n">unique_bpts</span><span class="o">=</span><span class="n">pose_cfg</span><span class="p">[</span><span class="s2">&quot;metadata&quot;</span><span class="p">][</span><span class="s2">&quot;unique_bodyparts&quot;</span><span class="p">],</span>
-        <span class="n">individuals</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;idv_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_detections</span><span class="p">)],</span>
+        <span class="n">bodyparts</span><span class="o">=</span><span class="n">pose_cfg</span><span class="p">[</span><span class="s2">"metadata"</span><span class="p">][</span><span class="s2">"bodyparts"</span><span class="p">],</span>
+        <span class="n">unique_bpts</span><span class="o">=</span><span class="n">pose_cfg</span><span class="p">[</span><span class="s2">"metadata"</span><span class="p">][</span><span class="s2">"unique_bodyparts"</span><span class="p">],</span>
+        <span class="n">individuals</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">"idv_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_detections</span><span class="p">)],</span>
     <span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Save to CSV</span>
-<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;image_predictions.csv&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"image_predictions.csv"</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Done!"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1037,17 +1038,17 @@ Done!
 <span class="n">marker_size</span> <span class="o">=</span> <span class="mi">12</span>
 
 <span class="k">for</span> <span class="n">image_path</span><span class="p">,</span> <span class="n">image_predictions</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">image_paths</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;RGB&quot;</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">"RGB"</span><span class="p">)</span>
 
-    <span class="n">pose</span> <span class="o">=</span> <span class="n">image_predictions</span><span class="p">[</span><span class="s2">&quot;bodyparts&quot;</span><span class="p">]</span>
-    <span class="n">bboxes</span> <span class="o">=</span> <span class="n">image_predictions</span><span class="p">[</span><span class="s2">&quot;bboxes&quot;</span><span class="p">]</span>
+    <span class="n">pose</span> <span class="o">=</span> <span class="n">image_predictions</span><span class="p">[</span><span class="s2">"bodyparts"</span><span class="p">]</span>
+    <span class="n">bboxes</span> <span class="o">=</span> <span class="n">image_predictions</span><span class="p">[</span><span class="s2">"bboxes"</span><span class="p">]</span>
     <span class="n">num_individuals</span><span class="p">,</span> <span class="n">num_bodyparts</span> <span class="o">=</span> <span class="n">pose</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
 
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">"off"</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">idv_pose</span> <span class="ow">in</span> <span class="n">pose</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">plot_skeleton</span><span class="p">:</span>
             <span class="n">bones</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1065,7 +1066,7 @@ Done!
                 <span class="n">idv_pose</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
                 <span class="n">idv_pose</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
                 <span class="n">c</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_bodyparts</span><span class="p">)),</span>
-                <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;rainbow&quot;</span><span class="p">,</span>
+                <span class="n">cmap</span><span class="o">=</span><span class="s2">"rainbow"</span><span class="p">,</span>
                 <span class="n">s</span><span class="o">=</span><span class="n">marker_size</span><span class="p">,</span>
             <span class="p">)</span>
 
@@ -1074,7 +1075,7 @@ Done!
             <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
                 <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">w</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">],</span>
                 <span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span>
-                <span class="n">c</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span>
+                <span class="n">c</span><span class="o">=</span><span class="s2">"r"</span><span class="p">,</span>
             <span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -1095,7 +1096,7 @@ Done!
 
 <span class="n">uploaded</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">upload</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">uploaded</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;User uploaded file &#39;</span><span class="si">{</span><span class="n">filepath</span><span class="si">}</span><span class="s2">&#39; with length </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="si">}</span><span class="s2"> bytes&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"User uploaded file '</span><span class="si">{</span><span class="n">filepath</span><span class="si">}</span><span class="s2">' with length </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="si">}</span><span class="s2"> bytes"</span><span class="p">)</span>
 
 
 <span class="n">video_path</span> <span class="o">=</span> <span class="p">[</span><span class="n">Path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span> <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="n">uploaded</span><span class="o">.</span><span class="n">keys</span><span class="p">()][</span><span class="mi">0</span><span class="p">]</span>
@@ -1104,7 +1105,7 @@ Done!
 <span class="c1"># manually upload your video via the Files menu to the left and define</span>
 <span class="c1"># `video_path` yourself with right `click` &gt; `copy path` on the video:</span>
 <span class="c1">#</span>
-<span class="c1"># video_path = Path(&quot;/path/to/my/video.mp4&quot;)</span>
+<span class="c1"># video_path = Path("/path/to/my/video.mp4")</span>
 </pre></div>
 </div>
 </div>
@@ -1292,7 +1293,7 @@ scope.google.colab._files = {
 };
 })(self);
 </script> </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Saving taylor-dancing.mov to taylor-dancing.mov
-User uploaded file &#39;taylor-dancing.mov&#39; with length 1415324 bytes
+User uploaded file 'taylor-dancing.mov' with length 1415324 bytes
 </pre></div>
 </div>
 </div>
@@ -1300,7 +1301,7 @@ User uploaded file &#39;taylor-dancing.mov&#39; with length 1415324 bytes
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the device on which the models will run</span>
-<span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span>  <span class="c1"># e.g. cuda, cpu</span>
+<span class="n">device</span> <span class="o">=</span> <span class="s2">"cuda"</span>  <span class="c1"># e.g. cuda, cpu</span>
 
 <span class="c1"># The maximum number of individuals to detect in an image</span>
 <span class="n">max_detections</span> <span class="o">=</span> <span class="mi">30</span>
@@ -1328,13 +1329,13 @@ User uploaded file &#39;taylor-dancing.mov&#39; with length 1415324 bytes
 <span class="c1"># in the video.</span>
 <span class="n">context</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running object detection&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Running object detection"</span><span class="p">)</span>
 <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
     <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">video</span><span class="p">):</span>
         <span class="n">batch</span> <span class="o">=</span> <span class="p">[</span><span class="n">preprocess</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">frame</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)]</span>
         <span class="n">predictions</span> <span class="o">=</span> <span class="n">detector</span><span class="p">(</span><span class="n">batch</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">bboxes</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;boxes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-        <span class="n">labels</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">bboxes</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="s2">"boxes"</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="s2">"labels"</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
 
         <span class="c1"># Obtain the bounding boxes predicted for humans</span>
         <span class="n">human_bboxes</span> <span class="o">=</span> <span class="p">[</span><span class="n">bbox</span> <span class="k">for</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bboxes</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
@@ -1349,7 +1350,7 @@ User uploaded file &#39;taylor-dancing.mov&#39; with length 1415324 bytes
         <span class="c1"># Only keep the top N bounding boxes</span>
         <span class="n">bboxes</span> <span class="o">=</span> <span class="n">bboxes</span><span class="p">[:</span><span class="n">max_detections</span><span class="p">]</span>
 
-        <span class="n">context</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;bboxes&quot;</span><span class="p">:</span> <span class="n">bboxes</span><span class="p">})</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"bboxes"</span><span class="p">:</span> <span class="n">bboxes</span><span class="p">})</span>
 
 <span class="c1"># Set the context for the video</span>
 <span class="n">video</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
@@ -1365,23 +1366,23 @@ User uploaded file &#39;taylor-dancing.mov&#39; with length 1415324 bytes
     <span class="n">max_individuals</span><span class="o">=</span><span class="n">max_detections</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running pose estimation&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Running pose estimation"</span><span class="p">)</span>
 <span class="n">predictions</span> <span class="o">=</span> <span class="n">runner</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">tqdm</span><span class="p">(</span><span class="n">video</span><span class="p">))</span>
 
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Saving the predictions to a CSV file&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Saving the predictions to a CSV file"</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">dlc_torch</span><span class="o">.</span><span class="n">build_predictions_dataframe</span><span class="p">(</span>
-    <span class="n">scorer</span><span class="o">=</span><span class="s2">&quot;rtmpose-body7&quot;</span><span class="p">,</span>
+    <span class="n">scorer</span><span class="o">=</span><span class="s2">"rtmpose-body7"</span><span class="p">,</span>
     <span class="n">predictions</span><span class="o">=</span><span class="p">{</span><span class="n">idx</span><span class="p">:</span> <span class="n">img_predictions</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">img_predictions</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">predictions</span><span class="p">)},</span>
     <span class="n">parameters</span><span class="o">=</span><span class="n">dlc_torch</span><span class="o">.</span><span class="n">PoseDatasetParameters</span><span class="p">(</span>
-        <span class="n">bodyparts</span><span class="o">=</span><span class="n">pose_cfg</span><span class="p">[</span><span class="s2">&quot;metadata&quot;</span><span class="p">][</span><span class="s2">&quot;bodyparts&quot;</span><span class="p">],</span>
-        <span class="n">unique_bpts</span><span class="o">=</span><span class="n">pose_cfg</span><span class="p">[</span><span class="s2">&quot;metadata&quot;</span><span class="p">][</span><span class="s2">&quot;unique_bodyparts&quot;</span><span class="p">],</span>
-        <span class="n">individuals</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;idv_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_detections</span><span class="p">)],</span>
+        <span class="n">bodyparts</span><span class="o">=</span><span class="n">pose_cfg</span><span class="p">[</span><span class="s2">"metadata"</span><span class="p">][</span><span class="s2">"bodyparts"</span><span class="p">],</span>
+        <span class="n">unique_bpts</span><span class="o">=</span><span class="n">pose_cfg</span><span class="p">[</span><span class="s2">"metadata"</span><span class="p">][</span><span class="s2">"unique_bodyparts"</span><span class="p">],</span>
+        <span class="n">individuals</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">"idv_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_detections</span><span class="p">)],</span>
     <span class="p">),</span>
 <span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;video_predictions.csv&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"video_predictions.csv"</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Done!"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1410,16 +1411,16 @@ Done!
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">deeplabcut.utils.make_labeled_video</span><span class="w"> </span><span class="kn">import</span> <span class="n">CreateVideo</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">deeplabcut.utils.video_processor</span><span class="w"> </span><span class="kn">import</span> <span class="n">VideoProcessorCV</span>
 
-<span class="n">video_output_path</span> <span class="o">=</span> <span class="s2">&quot;video_predictions.mp4&quot;</span>
+<span class="n">video_output_path</span> <span class="o">=</span> <span class="s2">"video_predictions.mp4"</span>
 
-<span class="n">clip</span> <span class="o">=</span> <span class="n">VideoProcessorCV</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">video_path</span><span class="p">),</span> <span class="n">sname</span><span class="o">=</span><span class="n">video_output_path</span><span class="p">,</span> <span class="n">codec</span><span class="o">=</span><span class="s2">&quot;mp4v&quot;</span><span class="p">)</span>
+<span class="n">clip</span> <span class="o">=</span> <span class="n">VideoProcessorCV</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">video_path</span><span class="p">),</span> <span class="n">sname</span><span class="o">=</span><span class="n">video_output_path</span><span class="p">,</span> <span class="n">codec</span><span class="o">=</span><span class="s2">"mp4v"</span><span class="p">)</span>
 <span class="n">CreateVideo</span><span class="p">(</span>
     <span class="n">clip</span><span class="p">,</span>
     <span class="n">df</span><span class="p">,</span>
     <span class="n">pcutoff</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
     <span class="n">dotsize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-    <span class="n">colormap</span><span class="o">=</span><span class="s2">&quot;rainbow&quot;</span><span class="p">,</span>
-    <span class="n">bodyparts2plot</span><span class="o">=</span><span class="n">pose_cfg</span><span class="p">[</span><span class="s2">&quot;metadata&quot;</span><span class="p">][</span><span class="s2">&quot;bodyparts&quot;</span><span class="p">],</span>
+    <span class="n">colormap</span><span class="o">=</span><span class="s2">"rainbow"</span><span class="p">,</span>
+    <span class="n">bodyparts2plot</span><span class="o">=</span><span class="n">pose_cfg</span><span class="p">[</span><span class="s2">"metadata"</span><span class="p">][</span><span class="s2">"bodyparts"</span><span class="p">],</span>
     <span class="n">trailpoints</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
     <span class="n">cropping</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">x1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
@@ -1427,17 +1428,17 @@ Done!
     <span class="n">y1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
     <span class="n">y2</span><span class="o">=</span><span class="n">clip</span><span class="o">.</span><span class="n">h</span><span class="p">,</span>
     <span class="n">bodyparts2connect</span><span class="o">=</span><span class="n">bodyparts2connect</span><span class="p">,</span>
-    <span class="n">skeleton_color</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span>
+    <span class="n">skeleton_color</span><span class="o">=</span><span class="s2">"w"</span><span class="p">,</span>
     <span class="n">draw_skeleton</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">displaycropped</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">color_by</span><span class="o">=</span><span class="s2">&quot;bodypart&quot;</span><span class="p">,</span>
+    <span class="n">color_by</span><span class="o">=</span><span class="s2">"bodypart"</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.11/dist-packages/deeplabcut/utils/make_labeled_video.py:146: FutureWarning: DataFrame.groupby with axis=1 is deprecated. Do `frame.T.groupby(...)` without axis instead.
-  Dataframe.groupby(level=&quot;individuals&quot;, axis=1).size().values // 3
+  Dataframe.groupby(level="individuals", axis=1).size().values // 3
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duration of video [s]: 1.57, recorded with 51.7 fps!
@@ -1493,11 +1494,11 @@ Generating frames and creating video.
       </div>
     </a>
     <a class="right-next"
-       href="COLAB_YOURDATA_SuperAnimal.html"
+       href="../../docs/notebooks/extra.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">DeepLabCut Model Zoo: SuperAnimal models</p>
+        <p class="prev-next-title">Additional features notebooks</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

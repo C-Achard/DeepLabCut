@@ -1,15 +1,17 @@
 ---
 deeplabcut:
-  last_metadata_updated: '2026-03-17'
+  last_metadata_updated: '2026-08-19'
   ignore: false
+  last_verified: '2026-08-19'
 ---
+
 # GUI overview
 
 DeepLabCut-live-GUI (`dlclivegui`) is a **PySide6-based desktop application** for running real-time DeepLabCut pose estimation experiments with **one or multiple cameras**, optional **processor plugins**, and **video recording** (with or without overlays).
 
 This page gives you a **guided tour of the main window**, explains the **core workflow**, and introduces the key concepts used throughout the user guide.
 
----
+______________________________________________________________________
 
 ## Main window at a glance
 
@@ -23,15 +25,16 @@ When you first launch the application, you will see the main window with three p
 - A **Video panel** (right) showing the live preview (single or tiled multi-camera)
 - A **Stats area** (below the video) summarizing camera, inference, and recorder performance
 
-:::{figure} ../_static/images/main_window_100226.png
-:alt: Screenshot of the main window
-:width: 100%
-:align: center
-
-   The main window on startup, showing the Controls panel (left), Video panel (right), and Stats area (below video).
-:::
-
+```{figure} ../\_static/images/main_window_gui.png
 ---
+alt: Screenshot of the main window
+width: 100%
+align: center
+---
+The main window on startup, showing the Controls panel (left), Video panel (right), and Stats area (below video).
+```
+
+______________________________________________________________________
 
 ## Intended workflow
 
@@ -41,23 +44,30 @@ as well as pick a model for pose inference.
 To start running an experiment, the typical workflow is:
 
 1. **Configure Cameras**
+
    - Use **Configure Cameras…** to select one or more cameras and their parameters.
    - See {ref}`file:dlclivegui-camera-support` for details on supported camera backends and troubleshooting.
 
-2. **Start Preview**
+1. **Start Preview**
+
    - Click **Start Preview** to begin streaming all selected configured cameras.
    - If multiple cameras are active, the preview becomes a **tiled view**.
 
-3. **Start Pose Inference** *(when ready)*
+1. **Start Pose Inference** *(when ready)*
+
    - Choose a **Model file**, optionally a DLC-live **Processor**[^processor-footnote], select the **Inference Camera**, then click **Start pose inference**.
+
    <!-- - For more details about Processors see... -->
+
    - Toggle **Display pose predictions** to show or hide pose estimation overlays.
 
-4. **Start Recording** *(when ready)*
+1. **Start Recording** *(when ready)*
+
    - Choose an **Output directory**, session/run naming options, and encoding settings, then click **Start recording**.
    - Recording includes **all active cameras** in multi-camera mode in separate files.
 
-5. **Stop**
+1. **Stop**
+
    - Use **Stop Preview**, **Stop pose inference**, and/or **Stop recording** as needed.
 
 ```{note}
@@ -66,7 +76,7 @@ Pose inference requires the camera preview to be running.
 If you start pose inference while the preview is stopped, the GUI will automatically start the preview first.
 ```
 
----
+______________________________________________________________________
 
 ## Main control panel
 
@@ -85,6 +95,9 @@ You can "undock" the control panel by dragging it by the title bar, allowing you
   - Add, enable, or disable cameras
   - Select backend and index
   - Adjust camera-specific properties
+    - Adjust exposure, gain, frame size, and frame rate
+    - Choose output format (color, grayscale, etc.)
+    - Configure supported trigger roles
   - Switch between single- and multi-camera setups
 
 ```{important}
@@ -92,6 +105,7 @@ Depending on the system, backend and camera model,
 settings may vary widely between proper support, partial support, or no support at all.
 
 This is especially true for the generalist OpenCV backend, which may work well with some cameras but not others.
+Please open an issue or PR if you would like to see support for a specific camera or backend improved.
 ```
 
 - **Active**
@@ -104,14 +118,18 @@ In multi-camera mode, pose inference runs on **one selected camera at a time** (
 even though preview and recording may include multiple cameras.
 ```
 
----
+#### Trigger settings
+
+See {ref}`sec:dlclivegui-trigger-settings` for details on configuring camera trigger roles and options.
+
+______________________________________________________________________
 
 ### DLCLive settings
 
 ```{note}
-`DLCLive` stands for DeepLabCut Live, the real-time pose estimation engine that powers the inference capabilities of this application.
+`DLCLive` refers to DeepLabCut Live, the real-time pose estimation engine that powers the inference capabilities of this application.
 
-Find more information here if needed: {ref}`deeplabcut-live`.
+Find more information here: {ref}`deeplabcut-live`.
 ```
 
 **Purpose:** Configure and run pose inference on the live stream.
@@ -129,6 +147,7 @@ Find more information here if needed: {ref}`deeplabcut-live`.
 
 - **Start pose inference / Stop pose inference**
   The button indicates inference state:
+
   - *Initializing DLCLive!* → Model loading
   - *DLCLive running!* → Inference active
 
@@ -138,7 +157,7 @@ Find more information here if needed: {ref}`deeplabcut-live`.
 - **Processor Status**
   Displays processor-specific status information when available.
 
----
+______________________________________________________________________
 
 ### Recording
 
@@ -150,6 +169,7 @@ See {ref}`file:dlclivegui-timestamp-format` for details.
 ```
 
 (sec:dlclivegui-recording-paths-info)=
+
 #### Recording output options
 
 - **Output directory**: Base directory for all recordings
@@ -167,8 +187,24 @@ You can hover over the preview path to see the full path, and click to copy it t
 #### Encoding options
 
 - **Container** (e.g. `mp4`, `avi`, `mov`)
+
 - **Codec** (availability depends on OS and hardware)
+
 - **CRF** (quality/compression tradeoff; lower values = higher quality)
+
+- **Use faster encoding parameters**
+  Applies faster FFmpeg settings to supported codecs to reduce encoding overhead and help maintain recording throughput.
+
+  For `libx264` and `libx265`, this enables:
+
+  - `preset=ultrafast`
+  - `tune=zerolatency`
+
+  These settings can reduce encoding latency, but may produce larger video files for the selected quality level. Other codecs, including hardware encoders such as `h264_nvenc`, are left unchanged.
+
+  ```{note}
+  Please let us know if you would like to see additional codec options or presets added to the GUI.
+  ```
 
 #### Controls
 
@@ -179,11 +215,11 @@ You can hover over the preview path to see the full path, and click to copy it t
 
 - **Record video with overlays**
   Include pose predictions and/or bounding boxes directly in the recorded video.
-  :::{danger}
+  ```{danger}
   This **cannot be easily undone** once the recording is saved.
 
   Use with caution if you want to preserve **raw footage** intact.
-  :::
+  ```
 
 ### About frame size mismatches
 
@@ -195,7 +231,6 @@ Frame size must remain constant for a recording session. If the recorder is conf
 - Stop the recorder and start a new recording after fixing the frame size
 ```
 
-
 ```{note}
 Frames are converted automatically for encoding:
 
@@ -204,7 +239,7 @@ Frames are converted automatically for encoding:
 - Frames are made contiguous in memory before being passed to the encoder.
 ```
 
----
+______________________________________________________________________
 
 ### Visualization settings
 
@@ -222,7 +257,7 @@ To adjust the bounding box intuitively, hover over a coordinate field (`x0`, `y0
 and drag horizontally.
 ```
 
----
+______________________________________________________________________
 
 ## Video Panel and Stats
 
@@ -244,7 +279,7 @@ Three continuously updated sections:
 Stats text can be selected and copied directly from the GUI
 ```
 
----
+______________________________________________________________________
 
 ## Menu bar actions
 
@@ -287,7 +322,7 @@ Configuration files store camera configurations, model paths, recording options,
 - **Ctrl+Shift+S**: Save configuration as...
 - **Ctrl+Q**: Quit application
 
----
+______________________________________________________________________
 
 ## Configuration and Persistence
 
@@ -299,7 +334,7 @@ The GUI can restore settings across sessions using:
   - The last-saved configuration is automatically loaded on startup if available
 - Remembered paths (e.g. last-used model directory)
 
-On startup, the application attempts to **restore your last‑used settings** if saved,
+On startup, the application attempts to **restore your last-used settings** if saved,
 but you can always manually load and save configurations.
 
 ```{tip}
